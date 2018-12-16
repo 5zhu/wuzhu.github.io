@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,NIO,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java NIO（New IO）是从Java 1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向缓冲区的、基于通道的IO操作。NIO将以更加高效的方式进行文件的读写操作。">
+<meta name="keywords" content="Java,NIO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java NIO 简述">
+<meta property="og:url" content="https://geguofeng.guthub.io/2017/12/26/Java NIO/index.html">
+<meta property="og:site_name" content="浮生梦">
+<meta property="og:description" content="Java NIO（New IO）是从Java 1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向缓冲区的、基于通道的IO操作。NIO将以更加高效的方式进行文件的读写操作。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i1.bvimg.com/671970/3ae07ebab0d7dab4.jpg">
+<meta property="og:updated_time" content="2018-12-16T14:28:32.015Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java NIO 简述">
+<meta name="twitter:description" content="Java NIO（New IO）是从Java 1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向缓冲区的、基于通道的IO操作。NIO将以更加高效的方式进行文件的读写操作。">
+<meta name="twitter:image" content="http://i1.bvimg.com/671970/3ae07ebab0d7dab4.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://geguofeng.guthub.io/2017/12/26/Java NIO/">
+
+
+
+
+
+  <title>Java NIO 简述 | 浮生梦</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?aa0f3f27dfac7d4ed953feef5813a6c8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浮生梦</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photo/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-camera-retro"></i> <br>
+            
+            存忆
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://geguofeng.guthub.io/2017/12/26/Java NIO/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孤竹">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://i2.bvimg.com/671970/f075e3b60caf0aa7.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浮生梦">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java NIO 简述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-26T12:15:42+08:00">
+                2017-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-NIO/" itemprop="url" rel="index">
+                    <span itemprop="name">Java NIO</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/12/26/Java NIO/" class="leancloud_visitors" data-flag-title="Java NIO 简述">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+              <div class="post-description">
+                  Java NIO（New IO）是从Java 1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向缓冲区的、基于通道的IO操作。NIO将以更加高效的方式进行文件的读写操作。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://i1.bvimg.com/671970/3ae07ebab0d7dab4.jpg" rel="gallery_cjpqzkady000sqb9kk12pe2yd" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://i1.bvimg.com/671970/3ae07ebab0d7dab4.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h2 id="Java-NIO"><a href="#Java-NIO" class="headerlink" title="Java NIO"></a>Java NIO</h2><h4 id="Java-NIO-简介"><a href="#Java-NIO-简介" class="headerlink" title="Java NIO 简介"></a>Java NIO 简介</h4><p>Java NIO（New IO）是从Java 1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向缓冲区的、基于通道的IO操作。NIO将以更加高效的方式进行文件的读写操作。</p>
+<h4 id="Java-NIO-与-IO-的主要区别"><a href="#Java-NIO-与-IO-的主要区别" class="headerlink" title="Java NIO  与 IO  的主要区别"></a>Java NIO  与 IO  的主要区别</h4><table>
+<thead>
+<tr>
+<th>IO</th>
+<th>NIO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>面向流(Stream Oriented)</td>
+<td>面向缓冲区(Buffer Oriented)</td>
+</tr>
+<tr>
+<td>阻塞IO(Blocking IO)</td>
+<td>非阻塞IO(Non Blocking IO)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="缓冲区-Buffer-和通道-Channel"><a href="#缓冲区-Buffer-和通道-Channel" class="headerlink" title="缓冲区(Buffer)和通道(Channel)"></a>缓冲区(Buffer)和通道(Channel)</h4><p>Java NIO系统的核心在于：通道(Channel)和缓冲区(Buffer)。通道表示打开到 IO 设备(例如：文件、套接字)的连接。若需要使用 NIO 系统，需要获取用于连接 IO设备的通道以及用于容纳数据的缓冲区。然后操作缓冲区，对数据进行处理。简而言之，Channel  负责传输， Buffer 负责存储</p>
+<h6 id="缓冲区Buffer"><a href="#缓冲区Buffer" class="headerlink" title="缓冲区Buffer"></a>缓冲区Buffer</h6><p> 一个用于特定基本数据类型的容器。由 java.nio包定义的，所有缓冲区都是 Buffer 抽象类的子类。Java NIO 中的 Buffer 主要用于与 NIO 通道进行交互，数据是从通道读入缓冲区，从缓冲区写入通道中的</p>
+<p> Buffer 就像一个数组，可以保存多个相同类型的数据。根据数据类型不同(boolean 除外) ，有以下 Buffer 常用子类：</p>
+<ul>
+<li>ByteBuffer</li>
+<li>CharBuffer</li>
+<li>ShortBuffer</li>
+<li>IntBuffer</li>
+<li>LongBuffer</li>
+<li>FloatBuffer</li>
+<li>DoubleBuffer</li>
+</ul>
+<p>上述 Buffer 类 他们都采用相似的方法进行管理数据，只是各自管理的数据类型不同而已。都是通过如下方法获取一个 Buffer对象：</p>
+<pre><code>allocate(int capacity) : 创建一个容量为capacity 的 XxxBuffer 对象
+</code></pre><h5 id="缓冲区的基本属性"><a href="#缓冲区的基本属性" class="headerlink" title="缓冲区的基本属性"></a>缓冲区的基本属性</h5><h6 id="Buffer-中的重要概念："><a href="#Buffer-中的重要概念：" class="headerlink" title="Buffer 中的重要概念："></a>Buffer 中的重要概念：</h6><ul>
+<li>容量 (capacity)  ：表示 Buffer 最大数据容量，缓冲区容量不能为负，并且创建后不能更改。</li>
+<li>限制 (limit) ：第一个不应该读取或写入的数据的索引，即位于 limit 后的数据<br>不可读写。缓冲区的限制不能为负，并且不能大于其容量。</li>
+<li>位置 (position)： 下一个要读取或写入的数据的索引。缓冲区的位置不能为负，并且不能大于其限制</li>
+<li>标记 (mark) 与重置 (reset) ：标记是一个索引，通过 Buffer 中的 mark() 方法<br>指定 Buffer 中一个特定的 position，之后可以通过调用 reset() 方法恢复到这个 position.</li>
+</ul>
+<pre><code>标记 、 位置 、 限制 、 容量遵守以下不变式： 0 &lt;= mark &lt;= position &lt;= limit &lt;= capacity
+</code></pre><p><img src="http://omtagtyxe.bkt.clouddn.com/nio1.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Buffer  clear()</td>
+<td>清空缓冲区并返回对缓冲区的引用</td>
+</tr>
+<tr>
+<td>Buffer flip()</td>
+<td>将缓冲区的界限设置为当前位置，并将当前位置充值为 0 0</td>
+</tr>
+<tr>
+<td>int capacity()</td>
+<td>返回 Buffer 的 capacity 大小</td>
+</tr>
+<tr>
+<td>boolean hasRemaining()</td>
+<td>判断缓冲区中是否还有元素</td>
+</tr>
+<tr>
+<td>int limit()</td>
+<td>返回 Buffer 的界限(limit) 的位置</td>
+</tr>
+<tr>
+<td>Buffer limit(int n)</td>
+<td>将设置缓冲区界限为 n, 并返回一个具有新 limit 的缓冲区对象</td>
+</tr>
+<tr>
+<td>Buffer mark()</td>
+<td>对缓冲区设置标记</td>
+</tr>
+<tr>
+<td>int position()</td>
+<td>返回缓冲区的当前位置 position</td>
+</tr>
+<tr>
+<td>Buffer position(int n)</td>
+<td>将设置缓冲区的当前位置为 n , 并返回修改后的 Buffer 对象</td>
+</tr>
+<tr>
+<td>int remaining()</td>
+<td>返回 position 和 limit 之间的元素个数</td>
+</tr>
+<tr>
+<td>Buffer reset()</td>
+<td>将位置 position 转到以前设置的 mark 所在的位置</td>
+</tr>
+<tr>
+<td>Buffer rewind()</td>
+<td>将位置设为为 0， 取消设置的 mark</td>
+</tr>
+</tbody>
+</table>
+<h6 id="缓冲区的数据操作"><a href="#缓冲区的数据操作" class="headerlink" title="缓冲区的数据操作"></a>缓冲区的数据操作</h6><p> Buffer 所有子类提供了两个用于数据操作的方法：get()与 put() 方法</p>
+<ul>
+<li>获取 Buffer  中的数据<ul>
+<li>get() ：读取单个字节</li>
+<li>get(byte[] dst)：批量读取多个字节到dst 中</li>
+<li>get(int index)：读取指定索引位置的字节(不会移动 position)</li>
+</ul>
+</li>
+<li>放到入数据到Buffer中 <ul>
+<li>put(byte b)：将给定单个字节写入缓冲区的当前位置</li>
+<li>put(byte[] src)：将 src 中的字节写入缓冲区的当前位置</li>
+<li>put(int index, byte b)：将指定字节写入缓冲区的索引位置(不会移动 position)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">"abcdefg"</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//1.分配一个指定大小的缓冲区</span></span><br><span class="line">        ByteBuffer buf = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">        System.out.println(<span class="string">"----------allocate()------------"</span>);</span><br><span class="line">        System.out.println(buf.position());</span><br><span class="line">        System.out.println(buf.limit());</span><br><span class="line">        System.out.println(buf.capacity());</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//2.存入数据到缓存区、</span></span><br><span class="line">        buf.put(str.getBytes());</span><br><span class="line">        System.out.println(<span class="string">"----------put()------------"</span>);</span><br><span class="line">        System.out.println(buf.position());</span><br><span class="line">        System.out.println(buf.limit());</span><br><span class="line">        System.out.println(buf.capacity());</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//3.切换到读取数据的模式</span></span><br><span class="line">        buf.flip();</span><br><span class="line">        System.out.println(<span class="string">"----------get()------------"</span>);</span><br><span class="line">        System.out.println(buf.position());</span><br><span class="line">        System.out.println(buf.limit());</span><br><span class="line">        System.out.println(buf.capacity());</span><br><span class="line">        <span class="comment">//4.利用get方法读取数据</span></span><br><span class="line">        <span class="keyword">byte</span>[] dst = <span class="keyword">new</span> <span class="keyword">byte</span>[buf.limit()];</span><br><span class="line">        buf.get(dst);</span><br><span class="line">        System.out.println(<span class="keyword">new</span> String(dst, <span class="number">0</span>, dst.length));</span><br><span class="line">        System.out.println(buf.position());</span><br><span class="line">        System.out.println(buf.limit());</span><br><span class="line">        System.out.println(buf.capacity());</span><br><span class="line">        </span><br><span class="line">        buf.rewind();</span><br><span class="line">        System.out.println(<span class="string">"----------rewind() 可重复读------------"</span>);</span><br><span class="line">        System.out.println(buf.position());</span><br><span class="line">        System.out.println(buf.limit());</span><br><span class="line">        System.out.println(buf.capacity());</span><br><span class="line">        </span><br><span class="line">        buf.clear();</span><br><span class="line">        System.out.println(<span class="string">"----------clear() 清空缓冲区 "</span> +</span><br><span class="line">        		<span class="string">"但是缓冲区的数据依然存在，只是出于“被遗忘状态”-指针恢复到最初状态-----------"</span>);</span><br><span class="line">        System.out.println(buf.position());</span><br><span class="line">        System.out.println(buf.limit());</span><br><span class="line">        System.out.println(buf.capacity());</span><br><span class="line">        System.out.println((<span class="keyword">char</span>)buf.get());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">----------allocate()------------</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1024</span></span><br><span class="line"><span class="number">1024</span></span><br><span class="line">----------put()------------</span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">1024</span></span><br><span class="line"><span class="number">1024</span></span><br><span class="line">----------get()------------</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">1024</span></span><br><span class="line">abcdefg</span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">1024</span></span><br><span class="line">----------rewind() 可重复读------------</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">1024</span></span><br><span class="line">----------clear() 清空缓冲区 但是缓冲区的数据依然存在，只是出于“被遗忘状态”-指针恢复到最初状态-----------</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1024</span></span><br><span class="line"><span class="number">1024</span></span><br><span class="line">a</span><br><span class="line">ad</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line">bcd</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure>
+<h6 id="Channel-（通道）"><a href="#Channel-（通道）" class="headerlink" title="Channel （通道）"></a>Channel （通道）</h6><ul>
+<li><p>Channel用于源节点与目标节点的连接，负责Java NIO中缓冲区的数据传输，Channel本身不存储数据，需要配合Buffer进行传输。</p>
+</li>
+<li><p>主要的实现类 FileChannel SocketChannel ServerSocketChannel DatagramChannel</p>
+</li>
+<li>获取通道的方法：java针对支持Channel的类提供了getChannel()方法，jdk1.7中提供了静态方法open(), Files工具类提供了newByteChannal();<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">//getChannel()方法获取</span></span><br><span class="line">FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"D:\\电子书\\Java 8实战.pdf"</span>);</span><br><span class="line">Channel channel = fis.getChannel();</span><br><span class="line">	</span><br><span class="line"><span class="comment">//open()</span></span><br><span class="line">FileChannel.open(Paths.get(<span class="string">"D:\\电子书\\Java 8实战.pdf"</span>), StandardOpenOption.WRITE);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Channel的write方法用于将buffer的数据写入到channel中，read方法用于将channel的数据读取到buffer中。<br>举个例子，Channel+ByteBuffer实现文件拷贝<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取通道</span></span><br><span class="line">		FileChannel readChannel = <span class="keyword">null</span>;</span><br><span class="line">		FileChannel writeChannel = <span class="keyword">null</span>;</span><br><span class="line">		</span><br><span class="line">		readChannel = <span class="keyword">new</span> FileInputStream(<span class="string">"D:\\电子书\\阿里巴巴Java开发手册v1.2.0.pdf"</span>).getChannel();</span><br><span class="line">		writeChannel = <span class="keyword">new</span> FileOutputStream(<span class="string">"D:\\电子书\\阿里巴巴Java开发手册v1.2.0_bak.pdf"</span>).getChannel();</span><br><span class="line">		<span class="comment">//缓冲区分配</span></span><br><span class="line">		ByteBuffer buffer = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">		<span class="comment">//将通道中的数据读入缓冲区</span></span><br><span class="line">		<span class="keyword">while</span>(readChannel.read(buffer)!=-<span class="number">1</span>)&#123;</span><br><span class="line">			buffer.flip();</span><br><span class="line">			<span class="comment">//将缓冲区的数据写入通道</span></span><br><span class="line">			writeChannel.write(buffer);</span><br><span class="line">			buffer.clear();</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="内存映射文件-MappedByteBuffer"><a href="#内存映射文件-MappedByteBuffer" class="headerlink" title="内存映射文件 MappedByteBuffer"></a>内存映射文件 MappedByteBuffer</h6><p>操作系统的内存分两部分:</p>
+<ul>
+<li>物理内存（即内存条的内存空间）;</li>
+<li>虚拟内存.虚拟内存一般使用的是页面映像文件,即硬盘中的某些特殊的文件.计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续的可用的内存（一个连续完整的地址空间），而实际上，它通常是被分隔成多个物理内存碎片，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换。</li>
+<li>缺页中断：当程序试图访问已映射在虚拟地址空间中但未被加载至物理内存的一个分页时，由MMC（CPU的内存管理单元）发出的中断。如果操作系统判断此次访问是有效的，则尝试将相关的页从虚拟内存文件中载入物理内存。</li>
+</ul>
+<p>MappedByteBuffer使用的是mmap技术。MappedByteBuffer将文件映射为内存，也可能会被存储在虚拟内存里面，访问的时候通过缺页机制调进内存。</p>
+<p>FileChannel提供了map方法获取MappedByteBuffer,可以指定访问的位置，访问内存映射文件的方式，其中，访问内存映射文件的方式有3种，分别为：READ_ONLY（只读），READ_WRITE（读写），PRIVATE（专用）。采用内存映射文件可以很大的提高读写文件的效率，因为将直接访问系统内存。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">      FileChannel readChannel = FileChannel.open(Paths.get(<span class="string">"D:\\电子书\\阿里巴巴Java开发手册v1.2.0.pdf"</span>), StandardOpenOption.READ);</span><br><span class="line">FileChannel writeChannel = FileChannel.open(Paths.get(<span class="string">"D:\\电子书\\阿里巴巴Java开发手册v1.2.0_bak2.pdf"</span>),</span><br><span class="line">		StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.READ);</span><br><span class="line"></span><br><span class="line">MappedByteBuffer readMapperByteBuffer = readChannel.map(MapMode.READ_ONLY, <span class="number">0</span>, readChannel.size());</span><br><span class="line">MappedByteBuffer writerMappedByteBuffer = writeChannel.map(MapMode.READ_WRITE, <span class="number">0</span>, readChannel.size());</span><br><span class="line"></span><br><span class="line"><span class="keyword">byte</span>[] dst = <span class="keyword">new</span> <span class="keyword">byte</span>[readMapperByteBuffer.limit()];</span><br><span class="line">readMapperByteBuffer.get(dst);</span><br><span class="line">writerMappedByteBuffer.put(dst);</span><br></pre></td></tr></table></figure>
+<h6 id="Pipe"><a href="#Pipe" class="headerlink" title="Pipe"></a>Pipe</h6><ul>
+<li>Java NIO 管道是2个线程之间的单向数据连接。Pipe有一个source通道和一个sink通道。数据会被写到sink通道，从source通道读取.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取pipe</span></span><br><span class="line">Pipe pipe = Pipe.open();</span><br><span class="line"><span class="comment">//分配缓存区</span></span><br><span class="line">ByteBuffer byteBuffer = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"><span class="comment">//数据从sink通道写入</span></span><br><span class="line">Pipe.SinkChannel sinkChannel = pipe.sink();</span><br><span class="line">byteBuffer.put(<span class="string">"通过Pipe发送数据"</span>.getBytes());</span><br><span class="line">byteBuffer.flip();</span><br><span class="line">sinkChannel.write(byteBuffer);</span><br><span class="line"><span class="comment">//从source通道读取</span></span><br><span class="line">Pipe.SourceChannel sourceChannel = pipe.source();</span><br><span class="line">byteBuffer.flip();</span><br><span class="line"><span class="keyword">int</span> len = sourceChannel.read(byteBuffer);</span><br><span class="line">System.out.println(<span class="keyword">new</span> String(byteBuffer.array(), <span class="number">0</span>, len));</span><br><span class="line">sourceChannel.close();</span><br><span class="line">sinkChannel.close();</span><br></pre></td></tr></table></figure>
+<h6 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h6><p>Selector（选择器）是Java NIO中能够检测一到多个NIO通道，并能够知晓通道是否为诸如读写事件做好准备的组件。这样，一个单独的线程可以管理多个channel，从而管理多个网络连接。</p>
+<ul>
+<li><p>Selector的创建</p>
+<pre><code>Selector selector = Selector.open();
+</code></pre></li>
+<li><p>向Selector注册通道</p>
+<pre><code>channel.configureBlocking(false);//切换成非阻塞模式
+SelectionKey key = channel.register(selector,
+  Selectionkey.OP_READ);
+</code></pre></li>
+<li><p>SelectionKey<br>当向Selector注册Channel时，register()方法会返回一个SelectionKey对象</p>
+</li>
+<li><p>select()方法<br>Selector注册了一或多个通道，就可以调用几个重载的select()方法。这些方法返回你所感兴趣的事件（如连接、接受、读或写）已经准备就绪的那些通道，<br>select()方法返回的int值表示有多少通道已经就绪。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">      <span class="comment">//获取通道</span></span><br><span class="line">ServerSocketChannel channel = ServerSocketChannel.open();</span><br><span class="line"><span class="comment">//绑定连接</span></span><br><span class="line">channel.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">8888</span>));</span><br><span class="line"><span class="comment">//创建Selector</span></span><br><span class="line">Selector selector = Selector.open();</span><br><span class="line"><span class="comment">//非阻塞模式</span></span><br><span class="line">channel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line"><span class="comment">//将channel注册到Selector上</span></span><br><span class="line">SelectionKey key = channel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line"><span class="comment">//轮询获取selector上的就绪事件</span></span><br><span class="line"><span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">  <span class="keyword">int</span> readyChannels = selector.select();</span><br><span class="line">  <span class="keyword">if</span>(readyChannels == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">  Set&lt;SelectionKey&gt; selectedKeys = selector.selectedKeys();</span><br><span class="line">  Iterator&lt;SelectionKey&gt; keyIterator = selectedKeys.iterator();</span><br><span class="line">  <span class="keyword">while</span>(keyIterator.hasNext()) &#123;</span><br><span class="line">    SelectionKey key = keyIterator.next();</span><br><span class="line">    <span class="keyword">if</span>(key.isAcceptable()) &#123;</span><br><span class="line">        <span class="comment">// a connection was accepted by a ServerSocketChannel.</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key.isConnectable()) &#123;</span><br><span class="line">        <span class="comment">// a connection was established with a remote server.</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key.isReadable()) &#123;</span><br><span class="line">        <span class="comment">// a channel is ready for reading</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key.isWritable()) &#123;</span><br><span class="line">        <span class="comment">// a channel is ready for writing</span></span><br><span class="line">    &#125;</span><br><span class="line">    keyIterator.remove();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/NIO/" rel="tag"># NIO</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/26/Java8/" rel="next" title="《Java 8 实战》读书笔记">
+                <i class="fa fa-chevron-left"></i> 《Java 8 实战》读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/03/Gradle/" rel="prev" title="新一代构建工具Gradle">
+                新一代构建工具Gradle <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://i2.bvimg.com/671970/f075e3b60caf0aa7.jpg" alt="孤竹">
+            
+              <p class="site-author-name" itemprop="name">孤竹</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/qianMu7" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:849447894@qq.com" target="_blank" title="邮箱">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>邮箱</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/2647661620/profile" target="_blank" title="新浪微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>新浪微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-NIO"><span class="nav-number">1.</span> <span class="nav-text">Java NIO</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-NIO-简介"><span class="nav-number">1.0.1.</span> <span class="nav-text">Java NIO 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-NIO-与-IO-的主要区别"><span class="nav-number">1.0.2.</span> <span class="nav-text">Java NIO  与 IO  的主要区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓冲区-Buffer-和通道-Channel"><span class="nav-number">1.0.3.</span> <span class="nav-text">缓冲区(Buffer)和通道(Channel)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#缓冲区Buffer"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">缓冲区Buffer</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓冲区的基本属性"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">缓冲区的基本属性</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Buffer-中的重要概念："><span class="nav-number">1.0.3.1.1.</span> <span class="nav-text">Buffer 中的重要概念：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#缓冲区的数据操作"><span class="nav-number">1.0.3.1.2.</span> <span class="nav-text">缓冲区的数据操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Channel-（通道）"><span class="nav-number">1.0.3.1.3.</span> <span class="nav-text">Channel （通道）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#内存映射文件-MappedByteBuffer"><span class="nav-number">1.0.3.1.4.</span> <span class="nav-text">内存映射文件 MappedByteBuffer</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Pipe"><span class="nav-number">1.0.3.1.5.</span> <span class="nav-text">Pipe</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Selector"><span class="nav-number">1.0.3.1.6.</span> <span class="nav-text">Selector</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">孤竹</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("emluRVrHFeeqf7mOfmmGG1Q5-gzGzoHsz", "Y0IEcezs4a566chh5susuKlD");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
