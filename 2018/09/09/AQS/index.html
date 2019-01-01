@@ -84,15 +84,15 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java并发编程实战：AQS">
 <meta property="og:url" content="https://geguofeng.guthub.io/2018/09/09/AQS/index.html">
-<meta property="og:site_name" content="往事话本">
+<meta property="og:site_name" content="求索">
 <meta property="og:description" content="AQS(AbstractQueuedSynchronizer)同步器,JDK1.5提供了  java.util.concurrent 包（JUC）大大的提升了并发性能，而AQS是JUC的核心。AQS是基于FIFO的队列，可用来构建锁和其他同步装置的基础框架。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://i1.bvimg.com/671970/1bce7fb7728da199.png">
-<meta property="og:updated_time" content="2018-12-16T14:28:32.031Z">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/9dd01c34ly1fyra3d1tgzj21hc0u0n2u.jpg">
+<meta property="og:updated_time" content="2019-01-01T11:38:50.590Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发编程实战：AQS">
 <meta name="twitter:description" content="AQS(AbstractQueuedSynchronizer)同步器,JDK1.5提供了  java.util.concurrent 包（JUC）大大的提升了并发性能，而AQS是JUC的核心。AQS是基于FIFO的队列，可用来构建锁和其他同步装置的基础框架。">
-<meta name="twitter:image" content="http://i1.bvimg.com/671970/1bce7fb7728da199.png">
+<meta name="twitter:image" content="http://wx1.sinaimg.cn/mw690/9dd01c34ly1fyra3d1tgzj21hc0u0n2u.jpg">
 
 
 
@@ -128,7 +128,24 @@
 
 
 
-  <title>Java并发编程实战：AQS | 往事话本</title>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+  <title>Java并发编程实战：AQS | 求索</title>
   
 
 
@@ -168,12 +185,12 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">往事话本</span>
+        <span class="site-title">求索</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">岁月不居，时节如流，往后的日子不辜负自己。</p>
+        <p class="site-subtitle"></p>
       
   </div>
 
@@ -290,11 +307,11 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://i2.bvimg.com/671970/f075e3b60caf0aa7.jpg">
+      <meta itemprop="image" content="http://wx1.sinaimg.cn/mw690/9dd01c34ly1fyqcb8m6gnj20fk0fkn0w.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="往事话本">
+      <meta itemprop="name" content="求索">
     </span>
 
     
@@ -396,8 +413,8 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="http://i1.bvimg.com/671970/1bce7fb7728da199.png" rel="gallery_cjqcby25h0002u99kn4xu8id3" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://i1.bvimg.com/671970/1bce7fb7728da199.png" itemprop="contentUrl">
+              <a class="post-gallery-img fancybox" href="http://wx1.sinaimg.cn/mw690/9dd01c34ly1fyra3d1tgzj21hc0u0n2u.jpg" rel="gallery_cjqdojnwm0000u79kcpuefo2c" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://wx1.sinaimg.cn/mw690/9dd01c34ly1fyra3d1tgzj21hc0u0n2u.jpg" itemprop="contentUrl">
               </a>
             
           
@@ -468,8 +485,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/04/JUC2/" rel="next" title="Java线程安全： 发布对象&对象逸出">
-                <i class="fa fa-chevron-left"></i> Java线程安全： 发布对象&对象逸出
+              <a href="/2018/09/03/juc1/" rel="next" title="Java线程安全：可见性，原子性，有序性">
+                <i class="fa fa-chevron-left"></i> Java线程安全：可见性，原子性，有序性
               </a>
             
           </div>
@@ -477,6 +494,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/01/JavaTimer/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -542,7 +563,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="http://i2.bvimg.com/671970/f075e3b60caf0aa7.jpg" alt="">
+              <img class="site-author-image" itemprop="image" src="http://wx1.sinaimg.cn/mw690/9dd01c34ly1fyqcb8m6gnj20fk0fkn0w.jpg" alt="">
             
               <p class="site-author-name" itemprop="name"></p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -555,7 +576,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -566,7 +587,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -577,7 +598,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -652,7 +673,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
