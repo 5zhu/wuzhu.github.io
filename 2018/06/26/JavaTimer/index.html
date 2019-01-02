@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Redis,">
+  <meta name="keywords" content="Java,Timer,">
 
 
 
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。">
-<meta name="keywords" content="Redis">
+<meta name="description" content="基于给定的时间点，给定的时间间隔或者给定的执行次数自动执行任务">
+<meta name="keywords" content="Java,Timer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis 浅谈">
-<meta property="og:url" content="https://geguofeng.guthub.io/2018/02/03/Redis/index.html">
+<meta property="og:title" content="Java定时任务调度">
+<meta property="og:url" content="https://geguofeng.guthub.io/2018/06/26/JavaTimer/index.html">
 <meta property="og:site_name" content="求索">
-<meta property="og:description" content="Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。">
+<meta property="og:description" content="基于给定的时间点，给定的时间间隔或者给定的执行次数自动执行任务">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/9dd01c34ly1fyrb6jjruwj21c00u07fw.jpg">
-<meta property="og:updated_time" content="2019-01-01T11:38:50.616Z">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/9dd01c34ly1fyrat7ga6ij21hc0u0tfk.jpg">
+<meta property="og:updated_time" content="2019-01-01T11:41:43.602Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis 浅谈">
-<meta name="twitter:description" content="Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。">
-<meta name="twitter:image" content="http://wx4.sinaimg.cn/mw690/9dd01c34ly1fyrb6jjruwj21c00u07fw.jpg">
+<meta name="twitter:title" content="Java定时任务调度">
+<meta name="twitter:description" content="基于给定的时间点，给定的时间间隔或者给定的执行次数自动执行任务">
+<meta name="twitter:image" content="http://wx2.sinaimg.cn/mw690/9dd01c34ly1fyrat7ga6ij21hc0u0tfk.jpg">
 
 
 
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="https://geguofeng.guthub.io/2018/02/03/Redis/">
+  <link rel="canonical" href="https://geguofeng.guthub.io/2018/06/26/JavaTimer/">
 
 
 
@@ -145,7 +145,7 @@
     }
 </style>
 
-  <title>Redis 浅谈 | 求索</title>
+  <title>Java定时任务调度 | 求索</title>
   
 
 
@@ -302,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://geguofeng.guthub.io/2018/02/03/Redis/">
+    <link itemprop="mainEntityOfPage" href="https://geguofeng.guthub.io/2018/06/26/JavaTimer/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -319,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Redis 浅谈</h1>
+          <h1 class="post-title" itemprop="name headline">Java定时任务调度</h1>
         
 
         <div class="post-meta">
@@ -331,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-03T00:00:00+08:00">
-                2018-02-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-26T12:15:42+08:00">
+                2018-06-26
               </time>
             
 
@@ -354,8 +354,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Java-Timer/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Timer</span>
                   </a>
                 </span>
 
@@ -371,7 +371,7 @@
 
           
           
-             <span id="/2018/02/03/Redis/" class="leancloud_visitors" data-flag-title="Redis 浅谈">
+             <span id="/2018/06/26/JavaTimer/" class="leancloud_visitors" data-flag-title="Java定时任务调度">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -394,7 +394,7 @@
 
           
               <div class="post-description">
-                  Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。
+                  基于给定的时间点，给定的时间间隔或者给定的执行次数自动执行任务
               </div>
           
 
@@ -413,8 +413,8 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="http://wx4.sinaimg.cn/mw690/9dd01c34ly1fyrb6jjruwj21c00u07fw.jpg" rel="gallery_cjqf71z0n0008lr9kdihnv347" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://wx4.sinaimg.cn/mw690/9dd01c34ly1fyrb6jjruwj21c00u07fw.jpg" itemprop="contentUrl">
+              <a class="post-gallery-img fancybox" href="http://wx2.sinaimg.cn/mw690/9dd01c34ly1fyrat7ga6ij21hc0u0tfk.jpg" rel="gallery_cjqf71z0p000alr9k8e4njf65" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://wx2.sinaimg.cn/mw690/9dd01c34ly1fyrat7ga6ij21hc0u0tfk.jpg" itemprop="contentUrl">
               </a>
             
           
@@ -425,59 +425,37 @@
       
 
       
-        <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h4 id="初始redis"><a href="#初始redis" class="headerlink" title="初始redis"></a>初始redis</h4><blockquote>
-<p>redis是一个开源的、使用C语言编写的、支持网络交互的、可基于内存也可持久化的Key-Value数据库。它的性能极高，性能极高 读的速度是110000次/s,写的速度是81000次/s 。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>基于给定的时间点，给定的时间间隔或者给定的执行次数自动执行任务。</p>
 </blockquote>
+<h2 id="Timer"><a href="#Timer" class="headerlink" title="Timer"></a>Timer</h2><h3 id="Timer定义"><a href="#Timer定义" class="headerlink" title="Timer定义"></a>Timer定义</h3><blockquote>
+<p>A facility for threads to schedule tasks for future execution in a background thread. Tasks may be scheduled for one-time execution, or for repeated execution at regular intervals.</p>
+</blockquote>
+<p>有且仅有一个后台线程对多个业务线程进行定时定频率的调度</p>
+<h3 id="Timer构造方法"><a href="#Timer构造方法" class="headerlink" title="Timer构造方法"></a>Timer构造方法</h3><ul>
+<li>Timer() 创建一个新计时器</li>
+<li>Timer(boolean isDaemon) 创建一个新计时器，可以指定其相关的线程作为守护程序运行。isDaemon:如果应该将相关的线程作为守护程序运行，则为 true</li>
+<li>Timer(String name) 创建一个新计时器，其相关的线程具有指定的名称  </li>
+<li>Timer(String name,boolean isDaemon)创建一个新计时器，其相关的线程具有指定的名称，并且可以指定作为守护程序运行。name 相关线程的名称。isDaemon - 如果应该将相关的线程作为守护程序运行，则为 true。</li>
+</ul>
+<h3 id="调度方法-schedule的四种用法"><a href="#调度方法-schedule的四种用法" class="headerlink" title="调度方法 schedule的四种用法"></a>调度方法 schedule的四种用法</h3><ul>
+<li>public void schedule(TimerTask task, long delay,  long period) 安排指定的任务从指定的延迟后开始进行重复的 固定延迟执行。以近似固定的时间间隔（由指定的周期分隔）进行后续执行。</li>
+</ul>
+<p>demo</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.TimerTask;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTimerTask</span> <span class="keyword">extends</span> <span class="title">TimerTask</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyTimerTask</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Calendar calendar = Calendar.getInstance();</span><br><span class="line">		DateFormat format = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd hh:mm:ss"</span>);</span><br><span class="line">		System.out.println(<span class="string">"MyTimerTask "</span> + name + format.format(calendar.getTime())); </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">  <span class="comment">//getter and setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用。</li>
-<li>Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。</li>
-<li>Redis支持数据的备份，即master-slave模式的数据备份。</li>
+<li><p>schedule(TimerTask task, Date time) 安排在指定的时间执行指定的任务。如果此时间已过去，则安排立即执行该任务。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Timer timer = <span class="keyword">new</span> Timer();</span><br><span class="line">MyTimerTask myTimerTask1 = <span class="keyword">new</span> MyTimerTask(<span class="string">"No.1"</span>);</span><br><span class="line"><span class="comment">//1 安排在指定的时间执行指定的任务。如果此时间已过去，则安排立即执行该任务</span></span><br><span class="line"><span class="comment">//eg:当前时间三秒后执行</span></span><br><span class="line">Calendar calendar = Calendar.getInstance();</span><br><span class="line">DateFormat format = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd hh:mm:ss"</span>);</span><br><span class="line">System.out.println(format.format(calendar.getTime()));</span><br><span class="line">calendar.add(Calendar.SECOND, <span class="number">3</span>);</span><br><span class="line">timer.schedule(myTimerTask1, calendar.getTime());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>schedule(TimerTask task,  Date firstTime, long period) 时间等于或超过fisrtTime是执行task，之后每隔period重复执行一次task。</p>
+</li>
+<li>schedule(TimerTask task, long delay) 等待delay毫秒后执行且仅执行一次task。</li>
+<li>schedule(TimerTask task, long delay, long period) 等待delay毫秒后首次执行task，之后每隔period毫秒重复执行一次task。</li>
 </ul>
-<h4 id="Redis的应用场景"><a href="#Redis的应用场景" class="headerlink" title="Redis的应用场景"></a>Redis的应用场景</h4><ul>
-<li>缓存，提升性能的常用方式</li>
-<li>队列，Redis 发布订阅(pub/sub)是一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。</li>
-<li>数据存储</li>
-</ul>
-<h4 id="Linux-下安装Redis"><a href="#Linux-下安装Redis" class="headerlink" title="Linux 下安装Redis"></a>Linux 下安装Redis</h4><pre><code>$ wget http://download.redis.io/releases/redis-2.8.17.tar.gz
-$ tar xzf redis-2.8.17.tar.gz
-$ cd redis-2.8.17
-$ make
+<h3 id="scheduleAtFixedRate"><a href="#scheduleAtFixedRate" class="headerlink" title="scheduleAtFixedRate"></a>scheduleAtFixedRate</h3><h4 id="首次执行时间早于当前时间"><a href="#首次执行时间早于当前时间" class="headerlink" title="首次执行时间早于当前时间"></a>首次执行时间早于当前时间</h4><p>  schedule(TimerTask task,  Date firstTime, long period)方法只能从当前时间开始执行，比如要当前时间是12:00:06,firstTime设为12:00:00，period设为2秒，那么schedule方法就不能执行firstTime到当前时间的三次task。<br>  而scheduleAtFixedRate(TimerTask task, Date firstTime, long period)在如果第一次执行时间被delay了，随后的执行时间会按照上一次任务开始的时间进行计算，并且为了赶上进度会多次执行任务。在方法调用时会立刻执行三次task。</p>
+<h4 id="执行任务的时间超过执行任务的period"><a href="#执行任务的时间超过执行任务的period" class="headerlink" title="执行任务的时间超过执行任务的period"></a>执行任务的时间超过执行任务的period</h4><p>  schedule(TimerTask task, long delay, long period)方法的下次执行时间是在上一次任务结束period后 开始执行下一次任务。而scheduleAtFixedRate是在上一次任务开始period后执行下一次task。存在并发性。</p>
+<h3 id="Timer的缺点"><a href="#Timer的缺点" class="headerlink" title="Timer的缺点"></a>Timer的缺点</h3><p>timer只有一个后台线程，管理并发任务存在缺馅；当一个task抛出异常时，其他的任务就不能执行了；不支持每周特定一天去执行任务。定时设置存在局限性。</p>
 
-//启动
-$ ./redis-server
-</code></pre><h4 id="Redis数据类型"><a href="#Redis数据类型" class="headerlink" title="Redis数据类型"></a>Redis数据类型</h4><p>Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。</p>
-<h6 id="String（字符串）"><a href="#String（字符串）" class="headerlink" title="String（字符串）"></a>String（字符串）</h6><p>string是redis最基本的类型，你可以理解成与Memcached一模一样的类型，一个key对应一个value。</p>
-<pre><code>redis 127.0.0.1:6379&gt; SET name &quot;chiD&quot;
-OK
-redis 127.0.0.1:6379&gt; GET name
-&quot;chiD&quot;
-</code></pre><h6 id="Hash（哈希）"><a href="#Hash（哈希）" class="headerlink" title="Hash（哈希）"></a>Hash（哈希）</h6><p>Redis hash 是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象。</p>
-<pre><code>redis&gt; HMSET myhash name &quot;chiD&quot; age &quot;26&quot;
-&quot;OK&quot;
-redis&gt; HGET myhash name
-&quot;chiD&quot;
-</code></pre><h6 id="List（列表）"><a href="#List（列表）" class="headerlink" title="List（列表）"></a>List（列表）</h6><p>Redis 列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。</p>
-<pre><code>redis 127.0.0.1:6379&gt; lpush mylist java
-(integer) 1
-redis 127.0.0.1:6379&gt; lpush mylist python
-(integer) 2
-redis 127.0.0.1:6379&gt; lpush mylist ruby
-(integer) 3
-
-redis 127.0.0.1:6379&gt; lrange mylist 0 10
-   1) &quot;ruby&quot;
-   2) &quot;python&quot;
-   3) &quot;java&quot;
-</code></pre><h6 id="Set（集合）"><a href="#Set（集合）" class="headerlink" title="Set（集合）"></a>Set（集合）</h6><p>Redis的Set是string类型的无序集合。<br>sadd 命令添加一个 string 元素到 key 对应的 set 集合中，成功返回1，如果元素已经在集合中返回 0，如果 key 对应的 set 不存在则返回错误。</p>
-<pre><code> redis 127.0.0.1:6379&gt; sadd myset redis
-(integer) 1
-redis 127.0.0.1:6379&gt; sadd myset java
-(integer) 1
-redis 127.0.0.1:6379&gt; sadd myset java
-(integer) 0
-</code></pre><h6 id="zset-sorted-set：有序集合"><a href="#zset-sorted-set：有序集合" class="headerlink" title="zset(sorted set：有序集合)"></a>zset(sorted set：有序集合)</h6><p>Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。<br>不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。  </p>
-<pre><code>zadd key score member 
-</code></pre>
       
     </div>
     
@@ -494,7 +472,9 @@ redis 127.0.0.1:6379&gt; sadd myset java
       
         <div class="post-tags">
           
-            <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/Timer/" rel="tag"><i class="fa fa-tag"></i> Timer</a>
           
         </div>
       
@@ -507,8 +487,8 @@ redis 127.0.0.1:6379&gt; sadd myset java
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/03/Gradle/" rel="next" title="新一代构建工具Gradle">
-                <i class="fa fa-chevron-left"></i> 新一代构建工具Gradle
+              <a href="/2018/02/03/Redis/" rel="next" title="Redis 浅谈">
+                <i class="fa fa-chevron-left"></i> Redis 浅谈
               </a>
             
           </div>
@@ -517,8 +497,8 @@ redis 127.0.0.1:6379&gt; sadd myset java
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/26/JavaTimer/" rel="prev" title="Java定时任务调度">
-                Java定时任务调度 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/03/juc1/" rel="prev" title="Java线程安全：可见性，原子性，有序性">
+                Java线程安全：可见性，原子性，有序性 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -675,7 +655,7 @@ redis 127.0.0.1:6379&gt; sadd myset java
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis"><span class="nav-number">1.</span> <span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始redis"><span class="nav-number">1.0.1.</span> <span class="nav-text">初始redis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis的应用场景"><span class="nav-number">1.0.2.</span> <span class="nav-text">Redis的应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-下安装Redis"><span class="nav-number">1.0.3.</span> <span class="nav-text">Linux 下安装Redis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis数据类型"><span class="nav-number">1.0.4.</span> <span class="nav-text">Redis数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#String（字符串）"><span class="nav-number">1.0.4.0.1.</span> <span class="nav-text">String（字符串）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Hash（哈希）"><span class="nav-number">1.0.4.0.2.</span> <span class="nav-text">Hash（哈希）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#List（列表）"><span class="nav-number">1.0.4.0.3.</span> <span class="nav-text">List（列表）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Set（集合）"><span class="nav-number">1.0.4.0.4.</span> <span class="nav-text">Set（集合）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#zset-sorted-set：有序集合"><span class="nav-number">1.0.4.0.5.</span> <span class="nav-text">zset(sorted set：有序集合)</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Timer"><span class="nav-number">2.</span> <span class="nav-text">Timer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Timer定义"><span class="nav-number">2.1.</span> <span class="nav-text">Timer定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timer构造方法"><span class="nav-number">2.2.</span> <span class="nav-text">Timer构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度方法-schedule的四种用法"><span class="nav-number">2.3.</span> <span class="nav-text">调度方法 schedule的四种用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scheduleAtFixedRate"><span class="nav-number">2.4.</span> <span class="nav-text">scheduleAtFixedRate</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首次执行时间早于当前时间"><span class="nav-number">2.4.1.</span> <span class="nav-text">首次执行时间早于当前时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行任务的时间超过执行任务的period"><span class="nav-number">2.4.2.</span> <span class="nav-text">执行任务的时间超过执行任务的period</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timer的缺点"><span class="nav-number">2.5.</span> <span class="nav-text">Timer的缺点</span></a></li></ol></li></ol></div>
             
 
           </div>
