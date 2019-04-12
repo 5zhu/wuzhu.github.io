@@ -1,0 +1,1174 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java NIO 简述, 青灯">
+    <meta name="description" content="Java NIOJava NIO 简介Java NIO（New IO）是从Java 1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java NIO 简述 | 青灯</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">青灯</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">青灯</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java NIO 简述
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                            <a href="/tags/NIO/" target="_blank">
+                                <span class="chip bg-color">NIO</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java-NIO/" class="post-category" target="_blank">
+                                Java NIO
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2017-12-26
+                </div>
+
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Java-NIO"><a href="#Java-NIO" class="headerlink" title="Java NIO"></a>Java NIO</h2><h4 id="Java-NIO-简介"><a href="#Java-NIO-简介" class="headerlink" title="Java NIO 简介"></a>Java NIO 简介</h4><p>Java NIO（New IO）是从Java 1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向缓冲区的、基于通道的IO操作。NIO将以更加高效的方式进行文件的读写操作。</p>
+<h4 id="Java-NIO-与-IO-的主要区别"><a href="#Java-NIO-与-IO-的主要区别" class="headerlink" title="Java NIO  与 IO  的主要区别"></a>Java NIO  与 IO  的主要区别</h4><table>
+<thead>
+<tr>
+<th>IO</th>
+<th>NIO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>面向流(Stream Oriented)</td>
+<td>面向缓冲区(Buffer Oriented)</td>
+</tr>
+<tr>
+<td>阻塞IO(Blocking IO)</td>
+<td>非阻塞IO(Non Blocking IO)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="缓冲区-Buffer-和通道-Channel"><a href="#缓冲区-Buffer-和通道-Channel" class="headerlink" title="缓冲区(Buffer)和通道(Channel)"></a>缓冲区(Buffer)和通道(Channel)</h4><p>Java NIO系统的核心在于：通道(Channel)和缓冲区(Buffer)。通道表示打开到 IO 设备(例如：文件、套接字)的连接。若需要使用 NIO 系统，需要获取用于连接 IO设备的通道以及用于容纳数据的缓冲区。然后操作缓冲区，对数据进行处理。简而言之，Channel  负责传输， Buffer 负责存储</p>
+<h6 id="缓冲区Buffer"><a href="#缓冲区Buffer" class="headerlink" title="缓冲区Buffer"></a>缓冲区Buffer</h6><p> 一个用于特定基本数据类型的容器。由 java.nio包定义的，所有缓冲区都是 Buffer 抽象类的子类。Java NIO 中的 Buffer 主要用于与 NIO 通道进行交互，数据是从通道读入缓冲区，从缓冲区写入通道中的</p>
+<p> Buffer 就像一个数组，可以保存多个相同类型的数据。根据数据类型不同(boolean 除外) ，有以下 Buffer 常用子类：</p>
+<ul>
+<li>ByteBuffer</li>
+<li>CharBuffer</li>
+<li>ShortBuffer</li>
+<li>IntBuffer</li>
+<li>LongBuffer</li>
+<li>FloatBuffer</li>
+<li>DoubleBuffer</li>
+</ul>
+<p>上述 Buffer 类 他们都采用相似的方法进行管理数据，只是各自管理的数据类型不同而已。都是通过如下方法获取一个 Buffer对象：</p>
+<pre><code>allocate(int capacity) : 创建一个容量为capacity 的 XxxBuffer 对象
+</code></pre><h5 id="缓冲区的基本属性"><a href="#缓冲区的基本属性" class="headerlink" title="缓冲区的基本属性"></a>缓冲区的基本属性</h5><h6 id="Buffer-中的重要概念："><a href="#Buffer-中的重要概念：" class="headerlink" title="Buffer 中的重要概念："></a>Buffer 中的重要概念：</h6><ul>
+<li>容量 (capacity)  ：表示 Buffer 最大数据容量，缓冲区容量不能为负，并且创建后不能更改。</li>
+<li>限制 (limit) ：第一个不应该读取或写入的数据的索引，即位于 limit 后的数据<br>不可读写。缓冲区的限制不能为负，并且不能大于其容量。</li>
+<li>位置 (position)： 下一个要读取或写入的数据的索引。缓冲区的位置不能为负，并且不能大于其限制</li>
+<li>标记 (mark) 与重置 (reset) ：标记是一个索引，通过 Buffer 中的 mark() 方法<br>指定 Buffer 中一个特定的 position，之后可以通过调用 reset() 方法恢复到这个 position.</li>
+</ul>
+<pre><code>标记 、 位置 、 限制 、 容量遵守以下不变式： 0 &lt;= mark &lt;= position &lt;= limit &lt;= capacity
+</code></pre><p><img src="http://omtagtyxe.bkt.clouddn.com/nio1.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Buffer  clear()</td>
+<td>清空缓冲区并返回对缓冲区的引用</td>
+</tr>
+<tr>
+<td>Buffer flip()</td>
+<td>将缓冲区的界限设置为当前位置，并将当前位置充值为 0 0</td>
+</tr>
+<tr>
+<td>int capacity()</td>
+<td>返回 Buffer 的 capacity 大小</td>
+</tr>
+<tr>
+<td>boolean hasRemaining()</td>
+<td>判断缓冲区中是否还有元素</td>
+</tr>
+<tr>
+<td>int limit()</td>
+<td>返回 Buffer 的界限(limit) 的位置</td>
+</tr>
+<tr>
+<td>Buffer limit(int n)</td>
+<td>将设置缓冲区界限为 n, 并返回一个具有新 limit 的缓冲区对象</td>
+</tr>
+<tr>
+<td>Buffer mark()</td>
+<td>对缓冲区设置标记</td>
+</tr>
+<tr>
+<td>int position()</td>
+<td>返回缓冲区的当前位置 position</td>
+</tr>
+<tr>
+<td>Buffer position(int n)</td>
+<td>将设置缓冲区的当前位置为 n , 并返回修改后的 Buffer 对象</td>
+</tr>
+<tr>
+<td>int remaining()</td>
+<td>返回 position 和 limit 之间的元素个数</td>
+</tr>
+<tr>
+<td>Buffer reset()</td>
+<td>将位置 position 转到以前设置的 mark 所在的位置</td>
+</tr>
+<tr>
+<td>Buffer rewind()</td>
+<td>将位置设为为 0， 取消设置的 mark</td>
+</tr>
+</tbody>
+</table>
+<h6 id="缓冲区的数据操作"><a href="#缓冲区的数据操作" class="headerlink" title="缓冲区的数据操作"></a>缓冲区的数据操作</h6><p> Buffer 所有子类提供了两个用于数据操作的方法：get()与 put() 方法</p>
+<ul>
+<li>获取 Buffer  中的数据<ul>
+<li>get() ：读取单个字节</li>
+<li>get(byte[] dst)：批量读取多个字节到dst 中</li>
+<li>get(int index)：读取指定索引位置的字节(不会移动 position)</li>
+</ul>
+</li>
+<li>放到入数据到Buffer中 <ul>
+<li>put(byte b)：将给定单个字节写入缓冲区的当前位置</li>
+<li>put(byte[] src)：将 src 中的字节写入缓冲区的当前位置</li>
+<li>put(int index, byte b)：将指定字节写入缓冲区的索引位置(不会移动 position)</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-Java"><code class="language-Java">String str = "abcdefg";
+
+        //1.分配一个指定大小的缓冲区
+        ByteBuffer buf = ByteBuffer.allocate(1024);
+        System.out.println("----------allocate()------------");
+        System.out.println(buf.position());
+        System.out.println(buf.limit());
+        System.out.println(buf.capacity());
+
+        //2.存入数据到缓存区、
+        buf.put(str.getBytes());
+        System.out.println("----------put()------------");
+        System.out.println(buf.position());
+        System.out.println(buf.limit());
+        System.out.println(buf.capacity());
+
+        //3.切换到读取数据的模式
+        buf.flip();
+        System.out.println("----------get()------------");
+        System.out.println(buf.position());
+        System.out.println(buf.limit());
+        System.out.println(buf.capacity());
+        //4.利用get方法读取数据
+        byte[] dst = new byte[buf.limit()];
+        buf.get(dst);
+        System.out.println(new String(dst, 0, dst.length));
+        System.out.println(buf.position());
+        System.out.println(buf.limit());
+        System.out.println(buf.capacity());
+
+        buf.rewind();
+        System.out.println("----------rewind() 可重复读------------");
+        System.out.println(buf.position());
+        System.out.println(buf.limit());
+        System.out.println(buf.capacity());
+
+        buf.clear();
+        System.out.println("----------clear() 清空缓冲区 " +
+                "但是缓冲区的数据依然存在，只是出于“被遗忘状态”-指针恢复到最初状态-----------");
+        System.out.println(buf.position());
+        System.out.println(buf.limit());
+        System.out.println(buf.capacity());
+        System.out.println((char)buf.get());
+
+
+----------allocate()------------
+0
+1024
+1024
+----------put()------------
+7
+1024
+1024
+----------get()------------
+0
+7
+1024
+abcdefg
+7
+7
+1024
+----------rewind() 可重复读------------
+0
+7
+1024
+----------clear() 清空缓冲区 但是缓冲区的数据依然存在，只是出于“被遗忘状态”-指针恢复到最初状态-----------
+0
+1024
+1024
+a
+ad
+2
+5
+bcd
+2
+10
+
+</code></pre>
+<h6 id="Channel-（通道）"><a href="#Channel-（通道）" class="headerlink" title="Channel （通道）"></a>Channel （通道）</h6><ul>
+<li><p>Channel用于源节点与目标节点的连接，负责Java NIO中缓冲区的数据传输，Channel本身不存储数据，需要配合Buffer进行传输。</p>
+</li>
+<li><p>主要的实现类 FileChannel SocketChannel ServerSocketChannel DatagramChannel</p>
+</li>
+<li><p>获取通道的方法：java针对支持Channel的类提供了getChannel()方法，jdk1.7中提供了静态方法open(), Files工具类提供了newByteChannal();</p>
+<pre class=" language-Java"><code class="language-Java">  //getChannel()方法获取
+  FileInputStream fis = new FileInputStream("D:\\电子书\\Java 8实战.pdf");
+  Channel channel = fis.getChannel();
+
+  //open()
+  FileChannel.open(Paths.get("D:\\电子书\\Java 8实战.pdf"), StandardOpenOption.WRITE);
+</code></pre>
+<p>Channel的write方法用于将buffer的数据写入到channel中，read方法用于将channel的数据读取到buffer中。<br>举个例子，Channel+ByteBuffer实现文件拷贝</p>
+<pre class=" language-Java"><code class="language-Java">//获取通道
+      FileChannel readChannel = null;
+      FileChannel writeChannel = null;
+
+      readChannel = new FileInputStream("D:\\电子书\\阿里巴巴Java开发手册v1.2.0.pdf").getChannel();
+      writeChannel = new FileOutputStream("D:\\电子书\\阿里巴巴Java开发手册v1.2.0_bak.pdf").getChannel();
+      //缓冲区分配
+      ByteBuffer buffer = ByteBuffer.allocate(1024);
+      //将通道中的数据读入缓冲区
+      while(readChannel.read(buffer)!=-1){
+          buffer.flip();
+          //将缓冲区的数据写入通道
+          writeChannel.write(buffer);
+          buffer.clear();
+      }
+</code></pre>
+<h6 id="内存映射文件-MappedByteBuffer"><a href="#内存映射文件-MappedByteBuffer" class="headerlink" title="内存映射文件 MappedByteBuffer"></a>内存映射文件 MappedByteBuffer</h6></li>
+</ul>
+<p>操作系统的内存分两部分:</p>
+<ul>
+<li>物理内存（即内存条的内存空间）;</li>
+<li>虚拟内存.虚拟内存一般使用的是页面映像文件,即硬盘中的某些特殊的文件.计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续的可用的内存（一个连续完整的地址空间），而实际上，它通常是被分隔成多个物理内存碎片，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换。</li>
+<li>缺页中断：当程序试图访问已映射在虚拟地址空间中但未被加载至物理内存的一个分页时，由MMC（CPU的内存管理单元）发出的中断。如果操作系统判断此次访问是有效的，则尝试将相关的页从虚拟内存文件中载入物理内存。</li>
+</ul>
+<p>MappedByteBuffer使用的是mmap技术。MappedByteBuffer将文件映射为内存，也可能会被存储在虚拟内存里面，访问的时候通过缺页机制调进内存。</p>
+<p>FileChannel提供了map方法获取MappedByteBuffer,可以指定访问的位置，访问内存映射文件的方式，其中，访问内存映射文件的方式有3种，分别为：READ_ONLY（只读），READ_WRITE（读写），PRIVATE（专用）。采用内存映射文件可以很大的提高读写文件的效率，因为将直接访问系统内存。</p>
+<pre class=" language-Java"><code class="language-Java">        FileChannel readChannel = FileChannel.open(Paths.get("D:\\电子书\\阿里巴巴Java开发手册v1.2.0.pdf"), StandardOpenOption.READ);
+        FileChannel writeChannel = FileChannel.open(Paths.get("D:\\电子书\\阿里巴巴Java开发手册v1.2.0_bak2.pdf"),
+                StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.READ);
+
+        MappedByteBuffer readMapperByteBuffer = readChannel.map(MapMode.READ_ONLY, 0, readChannel.size());
+        MappedByteBuffer writerMappedByteBuffer = writeChannel.map(MapMode.READ_WRITE, 0, readChannel.size());
+
+        byte[] dst = new byte[readMapperByteBuffer.limit()];
+        readMapperByteBuffer.get(dst);
+        writerMappedByteBuffer.put(dst);
+</code></pre>
+<h6 id="Pipe"><a href="#Pipe" class="headerlink" title="Pipe"></a>Pipe</h6><ul>
+<li>Java NIO 管道是2个线程之间的单向数据连接。Pipe有一个source通道和一个sink通道。数据会被写到sink通道，从source通道读取.</li>
+</ul>
+<pre class=" language-Java"><code class="language-Java">        //获取pipe
+        Pipe pipe = Pipe.open();
+        //分配缓存区
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+        //数据从sink通道写入
+        Pipe.SinkChannel sinkChannel = pipe.sink();
+        byteBuffer.put("通过Pipe发送数据".getBytes());
+        byteBuffer.flip();
+        sinkChannel.write(byteBuffer);
+        //从source通道读取
+        Pipe.SourceChannel sourceChannel = pipe.source();
+        byteBuffer.flip();
+        int len = sourceChannel.read(byteBuffer);
+        System.out.println(new String(byteBuffer.array(), 0, len));
+        sourceChannel.close();
+        sinkChannel.close();
+</code></pre>
+<h6 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h6><p>Selector（选择器）是Java NIO中能够检测一到多个NIO通道，并能够知晓通道是否为诸如读写事件做好准备的组件。这样，一个单独的线程可以管理多个channel，从而管理多个网络连接。</p>
+<ul>
+<li><p>Selector的创建</p>
+<pre><code>  Selector selector = Selector.open();
+</code></pre></li>
+<li><p>向Selector注册通道</p>
+<pre><code>channel.configureBlocking(false);//切换成非阻塞模式
+SelectionKey key = channel.register(selector,
+  Selectionkey.OP_READ);
+</code></pre></li>
+<li><p>SelectionKey<br>当向Selector注册Channel时，register()方法会返回一个SelectionKey对象</p>
+</li>
+<li><p>select()方法<br>Selector注册了一或多个通道，就可以调用几个重载的select()方法。这些方法返回你所感兴趣的事件（如连接、接受、读或写）已经准备就绪的那些通道，<br>select()方法返回的int值表示有多少通道已经就绪。</p>
+<p>  <code>`</code>Java</p>
+<pre><code>  //获取通道
+  ServerSocketChannel channel = ServerSocketChannel.open();
+  //绑定连接
+  channel.bind(new InetSocketAddress(8888));
+  //创建Selector
+  Selector selector = Selector.open();
+  //非阻塞模式
+  channel.configureBlocking(false);
+  //将channel注册到Selector上
+  SelectionKey key = channel.register(selector, SelectionKey.OP_ACCEPT);
+  //轮询获取selector上的就绪事件
+  while(true) {
+    int readyChannels = selector.select();
+    if(readyChannels == 0) continue;
+    Set&lt;SelectionKey&gt; selectedKeys = selector.selectedKeys();
+    Iterator&lt;SelectionKey&gt; keyIterator = selectedKeys.iterator();
+    while(keyIterator.hasNext()) {
+      SelectionKey key = keyIterator.next();
+      if(key.isAcceptable()) {
+          // a connection was accepted by a ServerSocketChannel.
+      } else if (key.isConnectable()) {
+          // a connection was established with a remote server.
+      } else if (key.isReadable()) {
+          // a channel is ready for reading
+      } else if (key.isWritable()) {
+          // a channel is ready for writing
+      }
+      keyIterator.remove();
+    }
+  }
+</code></pre></li>
+</ul>
+<p><code>`</code></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://geguofeng.guthub.io" class="b-link-green">青灯</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2017/12/26/Java NIO/" class="b-link-green">Java NIO 简述</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2018/01/03/Gradle/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="新一代构建工具Gradle">
+                        
+                        <span class="card-title">新一代构建工具Gradle</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">项目自动化介绍石器时代：在没有构建工具之前
+
+依赖管理 将依赖的jar包放在lib目录下
+测试 能不写就不写
+打包 通过ide打包
+上传  ftp上传到服务器
+
+构建工具依赖管理测试 打包 发布
+主流的构建工具ant 编译，测试，打包mav</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-01-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Gradle/" class="post-category" target="_blank">
+                                    Gradle
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Gradle/" target="_blank">
+                        <span class="chip bg-color">Gradle</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2017/12/26/Java8/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="《Java 8 实战》读书笔记">
+                        
+                        <span class="card-title">《Java 8 实战》读书笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">本章内容Java怎么又变了  Java 8所做的改变，在许多方面比Java历史上任何一次改变深远。而且好消息是，这些改变会让你编起程来更容易，用不着再写类似下面这种啰嗦的程序了（对inventory中的苹果按照重量进行排序）：
+    Co</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2017-12-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java-8/" class="post-category" target="_blank">
+                                    Java 8
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Lambda/" target="_blank">
+                        <span class="chip bg-color">Lambda</span>
+                    </a>
+                    
+                    <a href="/tags/Stream/" target="_blank">
+                        <span class="chip bg-color">Stream</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 青灯<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+    <a href="mailto:849447894@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=849447894" class="tooltipped" data-tooltip="QQ联系我: 849447894" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

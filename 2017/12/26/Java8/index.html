@@ -1,0 +1,1379 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="《Java 8 实战》读书笔记, 青灯">
+    <meta name="description" content="本章内容Java怎么又变了  Java 8所做的改变，在许多方面比Java历史上任何一次改变深远。而且好消息是，这些改变会让你编起程来更容易，用不着再写类似下面这种啰嗦的程序了（对inventory中的苹果按照重量进行排序）：
+    Co">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>《Java 8 实战》读书笔记 | 青灯</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">青灯</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">青灯</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        《Java 8 实战》读书笔记
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                            <a href="/tags/Lambda/" target="_blank">
+                                <span class="chip bg-color">Lambda</span>
+                            </a>
+                        
+                            <a href="/tags/Stream/" target="_blank">
+                                <span class="chip bg-color">Stream</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java-8/" class="post-category" target="_blank">
+                                Java 8
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2017-12-26
+                </div>
+
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="本章内容"><a href="#本章内容" class="headerlink" title="本章内容"></a>本章内容</h1><h2 id="Java怎么又变了"><a href="#Java怎么又变了" class="headerlink" title="Java怎么又变了"></a>Java怎么又变了</h2><p>  Java 8所做的改变，在许多方面比Java历史上任何一次改变深远。而且好<br>消息是，这些改变会让你编起程来更容易，用不着再写类似下面这种啰嗦的程序了（对inventory<br>中的苹果按照重量进行排序）：</p>
+<pre class=" language-java"><code class="language-java">    Collections<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>inventory<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Comparator</span><span class="token operator">&lt;</span>Apple<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+      <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">compare</span><span class="token punctuation">(</span>Apple a1<span class="token punctuation">,</span> Apple a2<span class="token punctuation">)</span><span class="token punctuation">{</span> 
+        <span class="token keyword">return</span> a1<span class="token punctuation">.</span><span class="token function">getWeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>a2<span class="token punctuation">.</span><span class="token function">getWeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+     <span class="token punctuation">}</span> 
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>在Java 8里面，你可以编写更为简洁的代码，这些代码读起来更接近问题的描述：</p>
+<pre><code> inventory.sort(comparing(Apple::getWeight));
+</code></pre><h2 id="Java中的函数"><a href="#Java中的函数" class="headerlink" title="Java中的函数"></a>Java中的函数</h2><p>Java 8中新增了函数——值的一种新形式。 借助于Stream API，Java 8可以进行多核处理器上的并行编程。</p>
+<p>第一个例子中介绍了Java8的新功能方法引用,比方说，你想要筛选一个目录中的所有隐藏文件。</p>
+<pre><code>File[] hiddenFiles = new File(&quot;.&quot;).listFiles(new FileFilter() { 
+     public boolean accept(File file) { 
+     return file.isHidden(); 
+    } 
+}); 
+</code></pre><p>在Java 8里，你可以把代码重写成这个样子：哇！酷不酷？你已经有了函数isHidden，因此只需用Java 8的方法引用::语法（即“把这<br>个方法作为值”）将其传给listFiles方法；</p>
+<pre><code> File[] hiddenFiles = new File(&quot;.&quot;).listFiles(File::isHidden);
+</code></pre><h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><p> Java8之前操作集合<br>比方说，你需要<br>从一个列表中筛选金额较高的交易，然后按货币分组。</p>
+<pre><code>Map&lt;Currency, List&lt;Transaction&gt;&gt;     transactionsByCurrencies = 
+ new HashMap&lt;&gt;(); 
+    for (Transaction transaction : transactions) { 
+      if(transaction.getPrice() &gt; 1000){ 
+       Currency currency = transaction.getCurrency(); 
+        List&lt;Transaction&gt; transactionsForCurrency = 
+                 transactionsByCurrencies.get(currency); 
+    if (transactionsForCurrency == null) { 
+    transactionsForCurrency = new ArrayList&lt;&gt;(); 
+    transactionsByCurrencies.put(currency, 
+     transactionsForCurrency); 
+    } 
+ transactionsForCurrency.add(transaction); 
+ } 
+} 
+</code></pre><p> 有了Stream API</p>
+<pre><code>import static java.util.stream.Collectors.toList; 
+  Map&lt;Currency, List&lt;Transaction&gt;&gt; transactionsByCurrencies = 
+    transactions.stream() 
+     .filter((Transaction t) -&gt; t.getPrice() &gt; 1000) 
+        .collect(groupingBy(Transaction::getCurrency)   );
+</code></pre><h2 id="默认方法"><a href="#默认方法" class="headerlink" title="默认方法"></a>默认方法</h2><p>接口中可以有方法的实现了，在Java 8里，你现在可以直接对List调用sort方法。它是用Java 8 List接口中如下所<br>示的默认方法实现的，它会调用Collections.sort静态方法：</p>
+<pre><code>default void sort(Comparator&lt;? super E&gt; c) { 
+ Collections.sort(this, c); 
+} 
+</code></pre><h1 id="流的概念，与集合的异同"><a href="#流的概念，与集合的异同" class="headerlink" title="流的概念，与集合的异同"></a>流的概念，与集合的异同</h1><h2 id="流是什么"><a href="#流是什么" class="headerlink" title="流是什么"></a>流是什么</h2><ul>
+<li><p>流是Java API的新成员，它允许你以声明性方式处理数据集合（通过查询语句来表达，而不<br>是临时编写一个实现）。可以把它们看成遍历数据集的高级迭代器。</p>
+</li>
+<li><p>作者在第一章中举了一个实际的例子：Unix的cat命令会把两个文件连接起来创建一个流，tr会转换流中的<br>字符，sort会对流中的行进行排序，而tail -3则给出流的最后三行。Unix命令行允许这些程<br>序通过管道（|）连接在一起，比如</p>
+<p>  cat file1 file2 | tr “[A-Z]” “[a-z]” | sort | tail -3</p>
+<p> 会（假设file1和file2中每行都只有一个词）先把字母转换成小写字母，然后打印出按照词典<br>排序出现在最后的三个单词。我们说sort把一个行流①作为输入，产生了另一个行流（进行排<br>序）作为输出。<br><img src="https://s1.ax2x.com/2017/12/26/YM8eu.png" alt=""></p>
+</li>
+<li><p>Stream API就是基于这种思想设计的。</p>
+</li>
+<li>使用流的好处：<br>下面两段代码都是用来返回低热量的菜肴名称的，<br>并按照卡路里排序。</li>
+<li>Java7：用了一个“垃圾变量”lowCaloricDishes。它唯一的作用就是作为一次<br>性的中间容器。<pre class=" language-java"><code class="language-java">   List<span class="token operator">&lt;</span>Dish<span class="token operator">></span> lowCaloricDishes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+      <span class="token keyword">for</span><span class="token punctuation">(</span>Dish d<span class="token operator">:</span> menu<span class="token punctuation">)</span><span class="token punctuation">{</span> 
+      <span class="token keyword">if</span><span class="token punctuation">(</span>d<span class="token punctuation">.</span><span class="token function">getCalories</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">400</span><span class="token punctuation">)</span><span class="token punctuation">{</span> 
+      lowCaloricDishes<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+      <span class="token punctuation">}</span> 
+    <span class="token punctuation">}</span> 
+      Collections<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>lowCaloricDishes<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Comparator</span><span class="token operator">&lt;</span>Dish<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">compare</span><span class="token punctuation">(</span>Dish d1<span class="token punctuation">,</span> Dish d2<span class="token punctuation">)</span><span class="token punctuation">{</span> 
+          <span class="token keyword">return</span> Integer<span class="token punctuation">.</span><span class="token function">compare</span><span class="token punctuation">(</span>d1<span class="token punctuation">.</span><span class="token function">getCalories</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> d2<span class="token punctuation">.</span><span class="token function">getCalories</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+          <span class="token punctuation">}</span> 
+   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    List<span class="token operator">&lt;</span>String<span class="token operator">></span> lowCaloricDishesName <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token keyword">for</span><span class="token punctuation">(</span>Dish d<span class="token operator">:</span> lowCaloricDishes<span class="token punctuation">)</span><span class="token punctuation">{</span> 
+     lowCaloricDishesName<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>d<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">}</span> 
+</code></pre>
+</li>
+<li>Java8:<pre class=" language-java"><code class="language-java">  <span class="token keyword">import</span> <span class="token keyword">static</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Comparator<span class="token punctuation">.</span>comparing<span class="token punctuation">;</span> 
+  <span class="token keyword">import</span> <span class="token keyword">static</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>stream<span class="token punctuation">.</span>Collectors<span class="token punctuation">.</span>toList<span class="token punctuation">;</span> 
+  List<span class="token operator">&lt;</span>String<span class="token operator">></span> lowCaloricDishesName <span class="token operator">=</span> 
+   menu<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">//从menu获得流（菜肴列表）</span>
+   <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>d <span class="token operator">-</span><span class="token operator">></span> d<span class="token punctuation">.</span><span class="token function">getCalories</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">400</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//首先选出低热量的菜肴</span>
+   <span class="token punctuation">.</span><span class="token function">sorted</span><span class="token punctuation">(</span><span class="token function">comparing</span><span class="token punctuation">(</span>Dish<span class="token operator">:</span><span class="token operator">:</span>getCalories<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//排序</span>
+   <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>Dish<span class="token operator">:</span><span class="token operator">:</span>getName<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//获取菜名</span>
+   <span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+-将流操作链接起来构成流的流水线<br><img src="https://s1.ax2x.com/2017/12/26/YO3ei.png" alt=""></li>
+</ul>
+<p>-那么，流到底是什么呢？简短的定义就是“<strong>从支持数据处理操作的源生成的元素序列</strong>”。</p>
+<h3 id="流只能消费一次"><a href="#流只能消费一次" class="headerlink" title="流只能消费一次"></a>流只能消费一次</h3><blockquote>
+<p>迭代器类似，流只能遍历一次。遍历完之后，我们就说这个流已经被消费掉了。你可以从原始数据源那里再获得一个新的流来重新遍历一遍</p>
+</blockquote>
+<pre><code>List&lt;String&gt; title = Arrays.asList(&quot;Java8&quot;, &quot;In&quot;, &quot;Action&quot;); 
+Stream&lt;String&gt; s = title.stream(); 
+ s.forEach(System.out::println); //打印标题中的每个单词
+ s.forEach(System.out::println);
+    //java.lang.IllegalStateException:流已被操作或关闭
+</code></pre><h3 id="外部迭代与内部迭代"><a href="#外部迭代与内部迭代" class="headerlink" title="外部迭代与内部迭代"></a>外部迭代与内部迭代</h3><blockquote>
+<p>使用Collection接口需要用户去做迭代（比如用for-each），这称为外部迭代。 相反，Streams库使用内部迭代。</p>
+</blockquote>
+<h3 id="流的操作"><a href="#流的操作" class="headerlink" title="流的操作"></a>流的操作</h3><ul>
+<li><strong>中间操作</strong> 和  <strong>终端操作</strong></li>
+</ul>
+<pre><code> List&lt;String&gt; names = menu.stream() 
+ .filter(d -&gt; d.getCalories() &gt; 300)
+ .map(Dish::getName) 
+ .limit(3) 
+ .collect(toList());
+</code></pre><ul>
+<li>filter、map和limit可以连成一条流水线  （中间操作）</li>
+<li>collect触发流水线执行并关闭它  （终端操作）</li>
+</ul>
+<blockquote>
+<p>总而言之，流的使用一般包括三件事：<br>  一个数据源（如集合）来执行一个查询；<br>  一个中间操作链，形成一条流的流水线；<br>  一个终端操作，执行流水线，并能生成结果。</p>
+</blockquote>
+<h1 id="使用流实现达复杂数据处理查询"><a href="#使用流实现达复杂数据处理查询" class="headerlink" title="使用流实现达复杂数据处理查询"></a>使用流实现达复杂数据处理查询</h1><h2 id="筛选和切片"><a href="#筛选和切片" class="headerlink" title="筛选和切片"></a>筛选和切片</h2><ul>
+<li><p>filter方法（你现在应该很熟悉了）。该操作会接受一个谓词（一个返回<br>boolean的函数）作为参数，并返回一个包括所有符合谓词的元素的流</p>
+<pre><code>  List&lt;Dish&gt; vegetarianMenu = menu.stream() 
+  .filter(Dish::isVegetarian) 
+  .collect(toList());
+</code></pre></li>
+<li><p>流还支持一个叫作<strong>distinct</strong>的方法，它会返回一个元素各异（根据流所生成元素的<br>hashCode和equals方法实现）的流。也就是去重。</p>
+</li>
+<li><p>流支持<strong>limit(n)</strong>方法，该方法会返回一个不超过给定长度的流。所需的长度作为参数传递<br>给limit。如果流是有序的，则最多会返回前n个元素。</p>
+</li>
+<li><p>流还支持<strong>skip(n)</strong>方法，返回一个扔掉了前n个元素的流。如果流中元素不足n个，则返回一<br>个空流。</p>
+</li>
+</ul>
+<h2 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h2><ul>
+<li><p>流支持map方法，它会接受一个函数作为参数。这个函数会被应用到每个元素上，并将其映射成一个新的元素。</p>
+<p>   List<string> dishNames = menu.stream() </string></p>
+<pre><code>  .map(Dish::getName) //提取流中菜肴的名称
+  .collect(toList()); 
+</code></pre></li>
+</ul>
+<p>map 生成的是个 1:1 映射，每个输入元素，都按照规则转换成为另外一个元素。还有一些场景，是一对多映射关系的，这时需要 <strong>flatMap</strong>。</p>
+<pre><code> Stream&lt;List&lt;Integer&gt;&gt; inputStream = Stream.of(
+    Arrays.asList(1),
+    Arrays.asList(2, 3),
+    Arrays.asList(4, 5, 6)
+    );
+    Stream&lt;Integer&gt; outputStream = inputStream.
+    flatMap((childList) -&gt; childList.stream());
+</code></pre><ul>
+<li>flatMap 把 input Stream 中的层级结构扁平化，就是将最底层元素抽出来放到一起，最终 output 的新 Stream 里面已经没有 List 了，都是直接的数字。</li>
+</ul>
+<h2 id="查找和匹配"><a href="#查找和匹配" class="headerlink" title="查找和匹配"></a>查找和匹配</h2><ul>
+<li><p><strong>anyMatch</strong>是否至少匹配一个元素</p>
+<pre><code>//看菜单里面是否有素食
+if(menu.stream().anyMatch(Dish::isVegetarian)){ 
+System.out.println(&quot;The menu is (somewhat) vegetarian friendly!!&quot;); 
+} 
+</code></pre><p>anyMatch方法返回一个boolean，因此是一个终端操作。</p>
+</li>
+<li><p><strong>allMatch</strong>是否匹配所有元素</p>
+</li>
+</ul>
+<pre><code>    //来看看菜品是否有利健康（即所有菜的热量都低于1000卡路里）
+   boolean isHealthy = menu.stream() 
+     .allMatch(d -&gt; d.getCalories() &lt; 1000); 
+</code></pre><ul>
+<li><strong>noneMatch</strong><br>和allMatch相对的是noneMatch</li>
+</ul>
+<h2 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h2><ul>
+<li><strong>findAny</strong>方法将返回当前流中的任意元素。它可以与其他流操作结合使用。</li>
+</ul>
+<pre><code> //找到一道素食菜肴
+ Optional&lt;Dish&gt; dish = 
+    menu.stream() 
+    .filter(Dish::isVegetarian) 
+    .findAny(); 
+</code></pre><p>Optional是个什么玩意儿?</p>
+<ul>
+<li><p><strong><em>Optional简介</em></strong></p>
+<p>Optional<t>类（java.util.Optional）是一个容器类，代表一个值存在或不存在。在<br>上面的代码中，findAny可能什么元素都没找到。Java 8的库设计人员引入了Optional<t>，这<br>样就不用返回众所周知容易出问题的null了。</t></t></p>
+<p>Optional里面几种检查值是否存在或处理值不存在的方法</p>
+</li>
+<li>isPresent()将在Optional包含值的时候返回true,否则返回false。</li>
+<li>ifPresent(Consumer<t> block)会在值存在的时候执行给定的代码块。我们在第3章<br>介绍了Consumer函数式接口；它让你传递一个接收T类型参数，并返回void的Lambda<br>表达式。</t></li>
+<li>T get()会在值存在时返回值，否则抛出一个NoSuchElement异常。</li>
+<li>T orElse(T other)会在值存在时返回值，否则返回一个默认值</li>
+</ul>
+<pre><code> //Optional对象中是否存在一道菜可以访问其名称：
+menu.stream() 
+    .filter(Dish::isVegetarian) 
+    .findAny() 
+    .ifPresent(d -&gt; System.out.println(d.getName());//如果包含一个
+    //值就打印它，否则什么都不做
+</code></pre><ul>
+<li><strong>findFirst</strong> 查找第一个元素</li>
+</ul>
+<h2 id="归约"><a href="#归约" class="headerlink" title="归约"></a>归约</h2><ul>
+<li>reduce操作来表达更复杂的查<br>询，比如“计算菜单中的总卡路里”或“菜单中卡路里最高的菜是哪一个”。此类查询需要将流中所有元素反复结合起来，得到一个值。</li>
+</ul>
+<p><strong>元素求和</strong></p>
+<pre><code> int sum = numbers.stream().reduce(0, (a, b) -&gt; a + b);
+</code></pre><p><strong>最大值</strong></p>
+<pre><code> Optional&lt;Integer&gt; max = numbers.stream().reduce(Integer::max);
+</code></pre><h1 id="并行流"><a href="#并行流" class="headerlink" title="并行流"></a>并行流</h1><p>并行流就是一个把内容分成多个数据<br>块，并用不同的线程分别处理每个数据块的流。</p>
+<p>传统的Java</p>
+<pre><code>public static long iterativeSum(long n) { 
+  long result = 0; 
+  for (long i = 1L; i &lt;= n; i++) { 
+  result += i; 
+  } 
+ return result; 
+ } 
+</code></pre><p>顺序流</p>
+<pre><code> public static long  sequentialSum((long n) { 
+     return Stream.iterate(1L, i -&gt; i + 1) 
+    .limit(n) 
+    .reduce(0L, Long::sum); 
+    } 
+</code></pre><p>对顺序流调用parallel方法,将顺序流转换为并行流.</p>
+<pre><code>public static long parallelSum(long n) { 
+ return Stream.iterate(1L, i -&gt; i + 1) 
+ .limit(n) 
+ .parallel() 
+ .reduce(0L, Long::sum); 
+} 
+</code></pre><p> <img src="https://s1.ax2x.com/2017/12/27/YCPxe.png" alt=""></p>
+<h2 id="并行流的性能"><a href="#并行流的性能" class="headerlink" title="并行流的性能"></a>并行流的性能</h2><ul>
+<li>测试性能的方法</li>
+</ul>
+<p>测试类</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>java8inaction<span class="token punctuation">.</span>part7<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>function<span class="token punctuation">.</span>Function<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>stream<span class="token punctuation">.</span>Stream<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/**
+ * 
+ * @author geguofeng
+ *
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ParallelStreams</span><span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 传统Java循环
+     * @param n
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">iterativeSum</span><span class="token punctuation">(</span><span class="token keyword">long</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">long</span> result <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result <span class="token operator">+=</span> n<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 顺序流
+     * @param n
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">sequentialSum</span><span class="token punctuation">(</span><span class="token keyword">long</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Stream<span class="token punctuation">.</span><span class="token function">iterate</span><span class="token punctuation">(</span>1L<span class="token punctuation">,</span> i<span class="token operator">-</span><span class="token operator">></span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">limit</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span>0L<span class="token punctuation">,</span> Long<span class="token operator">:</span><span class="token operator">:</span>sum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 并行流
+     * @param n
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">long</span>  <span class="token function">parallelSum</span><span class="token punctuation">(</span><span class="token keyword">long</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Stream<span class="token punctuation">.</span><span class="token function">iterate</span><span class="token punctuation">(</span>1L<span class="token punctuation">,</span> i<span class="token operator">-</span><span class="token operator">></span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">limit</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">parallel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span>0L<span class="token punctuation">,</span> Long<span class="token operator">:</span><span class="token operator">:</span>sum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 性能测试：这个方法接受一个函数和一个long作为参数。它会对传给方法的long应用函数10次，记录
+               每次执行的时间（以毫秒为单位），并返回最短的一次执行时间。
+     * @param adder
+     * @param n
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">measureSumPerf</span><span class="token punctuation">(</span>Function<span class="token operator">&lt;</span>Long<span class="token punctuation">,</span> Long<span class="token operator">></span>  adder<span class="token punctuation">,</span> <span class="token keyword">long</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+        <span class="token keyword">long</span> fastest <span class="token operator">=</span> Long<span class="token punctuation">.</span>MAX_VALUE<span class="token punctuation">;</span> 
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+           <span class="token keyword">long</span> start <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">nanoTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+           <span class="token keyword">long</span> sum <span class="token operator">=</span> adder<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+            <span class="token keyword">long</span> duration <span class="token operator">=</span> <span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">nanoTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start<span class="token punctuation">)</span> <span class="token operator">/</span> 1_000_000<span class="token punctuation">;</span> 
+            <span class="token comment" spellcheck="true">//System.out.println("Result: " + sum); </span>
+             <span class="token keyword">if</span> <span class="token punctuation">(</span>duration <span class="token operator">&lt;</span> fastest<span class="token punctuation">)</span>
+                 fastest <span class="token operator">=</span> duration<span class="token punctuation">;</span> 
+             <span class="token punctuation">}</span> 
+            <span class="token keyword">return</span> fastest<span class="token punctuation">;</span> 
+        <span class="token punctuation">}</span> 
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Sequential sum done in:"</span> <span class="token operator">+</span> 
+                 <span class="token function">measureSumPerf</span><span class="token punctuation">(</span>ParallelStreams<span class="token operator">:</span><span class="token operator">:</span>sequentialSum<span class="token punctuation">,</span> 10_000_000<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" msecs"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Iterative sum done in:"</span> <span class="token operator">+</span> 
+                 <span class="token function">measureSumPerf</span><span class="token punctuation">(</span>ParallelStreams<span class="token operator">:</span><span class="token operator">:</span>iterativeSum<span class="token punctuation">,</span> 10_000_000<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" msecs"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Parallel sum done in: "</span> <span class="token operator">+</span> 
+                 <span class="token function">measureSumPerf</span><span class="token punctuation">(</span>ParallelStreams<span class="token operator">:</span><span class="token operator">:</span>parallelSum<span class="token punctuation">,</span> 10_000_000<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" msecs"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> 
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+
+</code></pre>
+<pre><code>&gt;Sequential sum done in:107 msecs
+ Iterative sum done in:6 msecs
+ Parallel sum done in: 108 msecs
+</code></pre><blockquote>
+<p>当令人失望，求和方法的并行版本比顺序版本要慢很多。</p>
+<ul>
+<li>iterate生成的是装箱的对象，必须拆箱成数字才能求和；</li>
+<li>我们很难把iterate分成多个独立块来并行执行。<br>所以要<br><strong><em>使用更有针对性的方法</em></strong><br>LongStream.rangeClosed的方法。这个方法与iterate相比有两个优点。</li>
+<li>LongStream.rangeClosed直接产生原始类型的long数字，没有装箱拆箱的开销。</li>
+<li>LongStream.rangeClosed会生成数字范围，很容易拆分为独立的小块。例如，范围1~20<br>可分为1~5、6~10、11~15和16~20。</li>
+</ul>
+</blockquote>
+<pre class=" language-Java"><code class="language-Java"> //顺序流
+ public static long rangedSum(long n) { 
+      return LongStream.rangeClosed(1, n) .reduce(0L, Long::sum); 
+     } 
+
+     //并行流
+     public static long parallelRangedSum(long n) { 
+      return LongStream.rangeClosed(1, n) 
+                        .parallel() 
+                        .reduce(0L, Long::sum); 
+      } 
+
+</code></pre>
+<pre><code> 输出结果
+ Sequential range sum done in:6 msecs
+ Parallel range sum done in:3 msecs
+</code></pre><p>这个数值流比前面那个用iterate工厂方法生成数字的顺序执行版本要快得多，因为数值流<br>避免了非针对性流那些没必要的自动装箱和拆箱操作。由此可见，选择适当的数据结构往往比并<br>行化算法更重要。<br>使用<strong>并行流</strong>的结果终于比使用顺序流的快。<strong><em>这也表明，使用正确的数据结构然后使其并行工作能够保证最佳的性能</em></strong>。</p>
+<blockquote>
+<p>并行流内部使用了默认的ForkJoinPool ，它默认的<br>线程数量就是你的处理器数量，这个值是由 Runtime.getRuntime().availableProcessors()得到的。<br>但是你可以通过系统属性 java.util.concurrent.ForkJoinPool.common.<br>parallelism来改变线程池大小，如下所示：<br>System.setProperty(“java.util.concurrent.ForkJoinPool.common.parallelism”,”12”);这是一个全局设置，因此它将影响代码中所有的并行流。反过来说，目前还无法专为某个<br>并行流指定这个值。一般而言，让ForkJoinPool的大小等于处理器数量是个不错的默认值，<br>除非你有很好的理由，否则我们强烈建议你不要修改它。</p>
+</blockquote>
+<h1 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h1><blockquote>
+<p>可以把Lambda表达式理解为简洁地表示可传递的匿名函数的一种方式：它没有名称，但它<br>有参数列表、函数主体、返回类型，可能还有一个可以抛出的异常列表。</p>
+</blockquote>
+<p>先前：</p>
+<pre><code> Comparator&lt;Apple&gt; byWeight = new Comparator&lt;Apple&gt;() { 
+  public int compare(Apple a1, Apple a2){ 
+  return a1.getWeight().compareTo(a2.getWeight()); 
+   } 
+ }; 
+</code></pre><p>之后（用了Lambda表达式）：</p>
+<pre><code> Comparator&lt;Apple&gt; byWeight = (Apple a1, Apple a2) -&gt; a1.getWeight().compareTo(a2.getWeight()); 
+</code></pre><p>Lambda表达式有三个部分</p>
+<ul>
+<li>参数列表——这里它采用了Comparator中compare方法的参数，两个Apple。</li>
+<li>箭头——箭头   -&gt;  把参数列表与Lambda主体分隔开。</li>
+<li>Lambda主体——比较两个Apple的重量。表达式就是Lambda的返回值了。</li>
+</ul>
+<p>Lambda<br>的基本语法是<br>(parameters) -&gt; expression<br>或（请注意语句的花括号）<br>(parameters) -&gt; { statements; }</p>
+<ul>
+<li>了一些Lambda的例子和使用案例</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>使用案例</th>
+<th style="text-align:center">Lambda示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>布尔表达式</td>
+<td style="text-align:center">(List<string> list) -&gt; list.isEmpty()</string></td>
+</tr>
+<tr>
+<td>创建对象</td>
+<td style="text-align:center">() -&gt; new Apple(10)</td>
+</tr>
+<tr>
+<td>消费一个对象</td>
+<td style="text-align:center">(Apple a) -&gt; { System.out.println(a.getWeight()); }</td>
+</tr>
+<tr>
+<td>从一个对象中选择/抽取</td>
+<td style="text-align:center">(String s) -&gt; s.length()</td>
+</tr>
+<tr>
+<td>组合两个值</td>
+<td style="text-align:center">(int a, int b) -&gt; a * b</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Lambda及其等效方法引用的例子</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Lambda</th>
+<th style="text-align:center">等效的方法引用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(Apple a) -&gt; a.getWeight()</td>
+<td style="text-align:center">Apple::getWeight</td>
+</tr>
+<tr>
+<td>() -&gt; Thread.currentThread().dumpStack()</td>
+<td style="text-align:center">Thread.currentThread()::dumpStack</td>
+</tr>
+<tr>
+<td>(str, i) -&gt; str.substring(i)</td>
+<td style="text-align:center">String::substring</td>
+</tr>
+<tr>
+<td>(String s) -&gt; System.out.println(s)</td>
+<td style="text-align:center">System.out::println</td>
+</tr>
+</tbody>
+</table>
+<h2 id="如何构造方法引用"><a href="#如何构造方法引用" class="headerlink" title="如何构造方法引用"></a>如何构造方法引用</h2><ul>
+<li>(1) 指向静态方法的方法引用（例如Integer的parseInt方法，写作Integer::parseInt）</li>
+<li>指 向 任意类型实例方法 的方法引用（例如 String 的 length 方法，写作<br>String::length）<br>-(3) 指向现有对象的实例方法的方法引用（假设你有一个局部变量expensiveTransaction<br>用于存放Transaction类型的对象，它支持实例方法getValue，那么你就可以写expensiveTransaction::getValue）</li>
+</ul>
+<p><img src="https://s1.ax2x.com/2017/12/28/0MboG.png" alt=""></p>
+<h1 id="用Optional取代null"><a href="#用Optional取代null" class="headerlink" title="用Optional取代null"></a>用Optional取代null</h1><p>NullPointerException是目前Java程序开发中最典型的异常，它让你的代码充斥着深度嵌套的null检查，代码的可读性糟糕透顶。</p>
+<h2 id="Optional-类入门"><a href="#Optional-类入门" class="headerlink" title="Optional 类入门"></a>Optional 类入门</h2><p>Java 8中引入了一个新的类java.util.Optional<t>。这<br>是一个封装Optional值的类。变量存在时，Optional类只是对类简单封装。变量不存在时，缺失的值会被建模成一个“空”<br>的Optional对象，由方法Optional.empty()返回。</t></p>
+<p>不使用optional的例子</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">private</span> Car car<span class="token punctuation">;</span> 
+     <span class="token keyword">public</span> Car <span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> car<span class="token punctuation">;</span> <span class="token punctuation">}</span> 
+    <span class="token punctuation">}</span> 
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Car</span> <span class="token punctuation">{</span> 
+         <span class="token keyword">private</span> Insurance insurance<span class="token punctuation">;</span> 
+         <span class="token keyword">public</span> Insurance <span class="token function">getInsurance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> insurance<span class="token punctuation">;</span> <span class="token punctuation">}</span> 
+    <span class="token punctuation">}</span> 
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Insurance</span> <span class="token punctuation">{</span> 
+ <span class="token keyword">private</span> String name<span class="token punctuation">;</span> 
+ <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> name<span class="token punctuation">;</span> <span class="token punctuation">}</span> 
+<span class="token punctuation">}</span> 
+那么，下面这段代码存在怎样的问题呢？
+<span class="token keyword">public</span> String <span class="token function">getCarInsuranceName</span><span class="token punctuation">(</span>Person person<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+ <span class="token keyword">return</span> person<span class="token punctuation">.</span><span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInsurance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span> 
+</code></pre>
+<p> 如果person.getCar()==null,这个人没有车，就会抛个NullPointerException，</p>
+<p> 使用optional</p>
+<pre class=" language-Java"><code class="language-Java"> public class Person { 
+ //人可能有车，也可能没有车，因此将这个字段声明为Optional
+ private Optional<car> car; 
+ public Optional<car> getCar() { return car; } 
+ }
+public class Car { 
+//车可能进行了保险，也可能没有保险，所以将这个字段声明为ptional
+ private Optional<insurance> insurance; 
+ public Optional<insurance> getInsurance() { return insurance; } 
+} 
+public class Insurance { 
+ private String name; 
+ public String getName() { return name; }
+} 
+</insurance></insurance></car></car></code></pre>
+<blockquote>
+<p>null引用和Optional.empty()<br>有什么本质的区别吗？从语义上，你可以把它们当作一回事儿，但是实际中它们之间的差别非常<br>大：如果你尝试解引用一个 null ，一定会触发 NullPointerException ，不过使用<br>Optional.empty()就完全没事儿</p>
+</blockquote>
+<h2 id="应用-Optional-的几种模式"><a href="#应用-Optional-的几种模式" class="headerlink" title="应用 Optional 的几种模式"></a>应用 Optional 的几种模式</h2><h3 id="创建-Optional-对象"><a href="#创建-Optional-对象" class="headerlink" title="创建 Optional 对象"></a>创建 Optional 对象</h3><ul>
+<li><ol>
+<li>声明一个空的Optional<br>正如前文已经提到，你可以通过静态工厂方法Optional.empty，创建一个空的Optional<br>对象：</li>
+</ol>
+</li>
+</ul>
+<pre><code> Optional&lt;Car&gt; optCar = Optional.empty(); 
+</code></pre><ul>
+<li><ol start="2">
+<li>依据一个非空值创建Optional<br>你还可以使用静态工厂方法Optional.of，依据一个非空值创建一个Optional对象：如果car是一个null，这段代码会立即抛出一个NullPointerException，而不是等到你<br>试图访问car的属性值时才返回一个错误。</li>
+</ol>
+</li>
+</ul>
+<pre><code>Optional&lt;Car&gt; optCar = Optional.of(car); 
+</code></pre><ul>
+<li><ol start="3">
+<li>可接受null的Optional<br>最后，使用静态工厂方法Optional.ofNullable，你可以创建一个允许null值的Optional<br>对象：</li>
+</ol>
+</li>
+</ul>
+<pre><code> Optional&lt;Car&gt; optCar = Optional.ofNullable(car); 
+</code></pre><p>如果car是null，那么得到的Optional对象就是个空对象。</p>
+<h3 id="使用-map-从-Optional-对象中提取和转换值"><a href="#使用-map-从-Optional-对象中提取和转换值" class="headerlink" title="使用 map 从 Optional 对象中提取和转换值"></a>使用 map 从 Optional 对象中提取和转换值</h3><p>比如，你可能想要从insurance公司对象中提取<br>公司的名称。提取名称之前，你需要检查insurance对象是否为null，代码如下所示：</p>
+<pre><code> String name = null; 
+ if(insurance != null){ 
+  name = insurance.getName(); 
+ } 
+</code></pre><p>为了支持这种模式，Optional提供了一个map方法。它的工作方式如下：</p>
+<pre><code>Optional&lt;Insurance&gt; optInsurance = Optional.ofNullable(insurance); 
+Optional&lt;String&gt; name = optInsurance.map(Insurance::getName); 
+
+public String getCarInsuranceName(Person person) { 
+return person.getCar().getInsurance().getName(); 
+} 
+</code></pre><h3 id="使用-flatMap-链接-Optional-对象"><a href="#使用-flatMap-链接-Optional-对象" class="headerlink" title="使用 flatMap 链接 Optional 对象"></a>使用 flatMap 链接 Optional 对象</h3><p>利用map重写之前的代码</p>
+<pre><code> Optional&lt;Person&gt; optPerson = Optional.of(person); 
+    Optional&lt;String&gt; name = 
+     optPerson.map(Person::getCar) 
+     .map(Car::getInsurance) 
+     .map(Insurance::getName); 
+</code></pre><p>无法通过编译。为什么呢？optPerson是Optional<person>类型的<br>变量， 调用map方法应该没有问题。但getCar返回的是一个Optional<car>类型的对象（如代<br>码清单10-4所示），这意味着map操作的结果是一个Optional&lt;Optional<car>&gt;类型的对象。因<br>此，它对getInsurance的调用是非法的，因为最外层的optional对象包含了另一个optional<br>对象的值，而它当然不会支持getInsurance方法。</car></car></person></p>
+<blockquote>
+<p>latMap方法接受一个函数作为参数，这个函数的返回值是另一个流。<br>这个方法会应用到流中的每一个元素，最终形成一个新的流的流。但是flagMap会用流的内容替<br>换每个新生成的流。</p>
+</blockquote>
+<pre><code>public String getCarInsuranceName(Optional&lt;Person&gt;  person) { 
+ return person.flatMap(Person::getCar) 
+ .flatMap(Car::getInsurance) 
+ .map(Insurance::getName) 
+ .orElse(&quot;Unknown&quot;); 
+ } 
+</code></pre><p>由Optional<person>对象，我们可以结合使用之前介绍的map和flatMap方法，从Person<br>中解引用出Car，从Car中解引用出Insurance，从Insurance对象中解引用出包含insurance<br>公司名称的字符串。<br><img src="https://s1.ax2x.com/2017/12/29/0KGFz.png" alt=""></person></p>
+<h3 id="默认行为及解引用-Optional-对象"><a href="#默认行为及解引用-Optional-对象" class="headerlink" title="默认行为及解引用 Optional 对象"></a>默认行为及解引用 Optional 对象</h3><p>Optional类提供了多种方法读取<br>Optional实例中的变量值</p>
+<ul>
+<li>get()是这些方法中最简单但又最不安全的方法。如果变量存在，它直接返回封装的变量<br>值，否则就抛出一个NoSuchElementException异常。</li>
+<li>orElse(T other)允许你在Optional对象不包含值时提供一个默认值。</li>
+<li>orElseGet(Supplier&lt;? extends T&gt; other)是orElse方法的延迟调用版，Supplier<br>方法只有在Optional对象不含值时才执行调用</li>
+<li>orElseThrow(Supplier&lt;? extends X&gt; exceptionSupplier)和get方法非常类似，<br>它们遭遇Optional对象为空时都会抛出一个异常，但是使用orElseThrow你可以定制希<br>望抛出的异常类型。</li>
+<li>ifPresent(Consumer&lt;? super T&gt;)让你能在变量值存在时执行一个作为参数传入的<br>方法，否则就不进行任何操作。</li>
+</ul>
+<h3 id="使用-filter-剔除特定的值"><a href="#使用-filter-剔除特定的值" class="headerlink" title="使用 filter 剔除特定的值"></a>使用 filter 剔除特定的值</h3><pre><code> Optional&lt;Insurance&gt; optInsurance = ...; 
+ optInsurance.filter(insurance -&gt; 
+  &quot;CambridgeInsurance&quot;.equals(insurance.getName())) 
+  .ifPresent(x -&gt; System.out.println(&quot;ok&quot;)); 
+</code></pre>
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://geguofeng.guthub.io" class="b-link-green">青灯</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2017/12/26/Java8/" class="b-link-green">《Java 8 实战》读书笔记</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2017/12/26/Java NIO/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Java NIO 简述">
+                        
+                        <span class="card-title">Java NIO 简述</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">Java NIOJava NIO 简介Java NIO（New IO）是从Java 1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2017-12-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java-NIO/" class="post-category" target="_blank">
+                                    Java NIO
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/NIO/" target="_blank">
+                        <span class="chip bg-color">NIO</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
+            </div>
+            <div class="card">
+                <a href="/2017/12/26/Java8/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="《Java 8 实战》读书笔记">
+                        
+                        <span class="card-title">《Java 8 实战》读书笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">本章内容Java怎么又变了  Java 8所做的改变，在许多方面比Java历史上任何一次改变深远。而且好消息是，这些改变会让你编起程来更容易，用不着再写类似下面这种啰嗦的程序了（对inventory中的苹果按照重量进行排序）：
+    Co</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2017-12-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java-8/" class="post-category" target="_blank">
+                                    Java 8
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Lambda/" target="_blank">
+                        <span class="chip bg-color">Lambda</span>
+                    </a>
+                    
+                    <a href="/tags/Stream/" target="_blank">
+                        <span class="chip bg-color">Stream</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 青灯<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+    <a href="mailto:849447894@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=849447894" class="tooltipped" data-tooltip="QQ联系我: 849447894" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
