@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Java定时任务调度, 青灯">
+    <meta name="keywords" content="Java定时任务调度, Godfery">
     <meta name="description" content="前言
 基于给定的时间点，给定的时间间隔或者给定的执行次数自动执行任务。
 
@@ -17,7 +17,7 @@ A facility for threads to schedule tasks for future execution in a bac">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Java定时任务调度 | 青灯</title>
+    <title>Java定时任务调度 | Godfery</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -32,7 +32,8 @@ A facility for threads to schedule tasks for future execution in a bac">
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -45,7 +46,7 @@ A facility for threads to schedule tasks for future execution in a bac">
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">青灯</span>
+                    <span class="logo-span">Godfery</span>
                 </a>
             </div>
             
@@ -120,7 +121,7 @@ A facility for threads to schedule tasks for future execution in a bac">
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">青灯</div>
+        <div class="logo-name">Godfery</div>
         <div class="logo-desc">
             
             Never really desperate, only the lost of the soul.
@@ -379,7 +380,7 @@ A facility for threads to schedule tasks for future execution in a bac">
 <li>public void schedule(TimerTask task, long delay,  long period) 安排指定的任务从指定的延迟后开始进行重复的 固定延迟执行。以近似固定的时间间隔（由指定的周期分隔）进行后续执行。</li>
 </ul>
 <p>demo</p>
-<pre class=" language-Java"><code class="language-Java">import java.util.TimerTask;
+<pre class="line-numbers language-Java"><code class="language-Java">import java.util.TimerTask;
 
 public class MyTimerTask extends TimerTask{
 
@@ -398,10 +399,10 @@ public class MyTimerTask extends TimerTask{
 
   //getter and setter
 }
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li><p>schedule(TimerTask task, Date time) 安排在指定的时间执行指定的任务。如果此时间已过去，则安排立即执行该任务。</p>
-<pre class=" language-Java"><code class="language-Java">Timer timer = new Timer();
+<pre class="line-numbers language-Java"><code class="language-Java">Timer timer = new Timer();
 MyTimerTask myTimerTask1 = new MyTimerTask("No.1");
 //1 安排在指定的时间执行指定的任务。如果此时间已过去，则安排立即执行该任务
 //eg:当前时间三秒后执行
@@ -410,7 +411,7 @@ DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 System.out.println(format.format(calendar.getTime()));
 calendar.add(Calendar.SECOND, 3);
 timer.schedule(myTimerTask1, calendar.getTime());
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>schedule(TimerTask task,  Date firstTime, long period) 时间等于或超过fisrtTime是执行task，之后每隔period重复执行一次task。</p>
 </li>
@@ -565,7 +566,7 @@ timer.schedule(myTimerTask1, calendar.getTime());
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://geguofeng.guthub.io" class="b-link-green">青灯</a>
+                    <a href="https://geguofeng.guthub.io" class="b-link-green">Godfery</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/2018/06/26/JavaTimer/" class="b-link-green">Java定时任务调度</a>
                 </p>
@@ -592,28 +593,30 @@ timer.schedule(myTimerTask1, calendar.getTime());
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2018/09/03/juc1/">
+                <a href="/2018/07/03/tomcat/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Java线程安全：可见性，原子性，有序性">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Tomcat基本原理">
                         
-                        <span class="card-title">Java线程安全：可见性，原子性，有序性</span>
+                        <span class="card-title">Tomcat基本原理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">Java线程安全可见性，原子性，有序性
-Java内存模型（JMM）Java内存模型（Java Memory Model）描述了Java程序中各种变量（线程共享变量）的访问规则，以及在JVM中将变量存储到内存和从内存中读取变量这样的底层细节。</div>
+                    <div class="summary block-with-text">Tomcat是Apache软件基金会（Apache Software Foundation）的Jakarta项目中的一个核心项目。一个免费的开放源代码的Web应用服务器。
+Tomcat组件介绍上图是Tomcat的总体结构：    
+
+Ser</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-09-03
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-03
                         </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/多线程/" class="post-category" target="_blank">
-                                    多线程
+                            <a href="/categories/Tomcat/" class="post-category" target="_blank">
+                                    Tomcat
                                 </a>
                             
                             
@@ -623,8 +626,8 @@ Java内存模型（JMM）Java内存模型（Java Memory Model）描述了Java程
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/多线程/" target="_blank">
-                        <span class="chip bg-color">多线程</span>
+                    <a href="/tags/Tomcat/" target="_blank">
+                        <span class="chip bg-color">Tomcat</span>
                     </a>
                     
                 </div>
@@ -713,7 +716,7 @@ Redis支持数据</div>
 
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
-            + '来源: 青灯<br />'
+            + '来源: Godfery<br />'
             + '作者: <br />'
             + '链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
@@ -824,7 +827,7 @@ Redis支持数据</div>
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            本站由&copy;<a href="https://geguofeng.github.io/" target="_blank">Godfery</a>基于
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的
             <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
 

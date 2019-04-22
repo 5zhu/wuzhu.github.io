@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Java NIO 简述, 青灯">
+    <meta name="keywords" content="Java NIO 简述, Godfery">
     <meta name="description" content="Java NIOJava NIO 简介Java NIO（New IO）是从Java 1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Java NIO 简述 | 青灯</title>
+    <title>Java NIO 简述 | Godfery</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -28,7 +28,8 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -41,7 +42,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">青灯</span>
+                    <span class="logo-span">Godfery</span>
                 </a>
             </div>
             
@@ -116,7 +117,7 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">青灯</div>
+        <div class="logo-name">Godfery</div>
         <div class="logo-desc">
             
             Never really desperate, only the lost of the soul.
@@ -472,7 +473,7 @@
 </ul>
 </li>
 </ul>
-<pre class=" language-Java"><code class="language-Java">String str = "abcdefg";
+<pre class="line-numbers language-Java"><code class="language-Java">String str = "abcdefg";
 
         //1.分配一个指定大小的缓冲区
         ByteBuffer buf = ByteBuffer.allocate(1024);
@@ -549,22 +550,22 @@ bcd
 2
 10
 
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h6 id="Channel-（通道）"><a href="#Channel-（通道）" class="headerlink" title="Channel （通道）"></a>Channel （通道）</h6><ul>
 <li><p>Channel用于源节点与目标节点的连接，负责Java NIO中缓冲区的数据传输，Channel本身不存储数据，需要配合Buffer进行传输。</p>
 </li>
 <li><p>主要的实现类 FileChannel SocketChannel ServerSocketChannel DatagramChannel</p>
 </li>
 <li><p>获取通道的方法：java针对支持Channel的类提供了getChannel()方法，jdk1.7中提供了静态方法open(), Files工具类提供了newByteChannal();</p>
-<pre class=" language-Java"><code class="language-Java">  //getChannel()方法获取
+<pre class="line-numbers language-Java"><code class="language-Java">  //getChannel()方法获取
   FileInputStream fis = new FileInputStream("D:\\电子书\\Java 8实战.pdf");
   Channel channel = fis.getChannel();
 
   //open()
   FileChannel.open(Paths.get("D:\\电子书\\Java 8实战.pdf"), StandardOpenOption.WRITE);
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Channel的write方法用于将buffer的数据写入到channel中，read方法用于将channel的数据读取到buffer中。<br>举个例子，Channel+ByteBuffer实现文件拷贝</p>
-<pre class=" language-Java"><code class="language-Java">//获取通道
+<pre class="line-numbers language-Java"><code class="language-Java">//获取通道
       FileChannel readChannel = null;
       FileChannel writeChannel = null;
 
@@ -579,7 +580,7 @@ bcd
           writeChannel.write(buffer);
           buffer.clear();
       }
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h6 id="内存映射文件-MappedByteBuffer"><a href="#内存映射文件-MappedByteBuffer" class="headerlink" title="内存映射文件 MappedByteBuffer"></a>内存映射文件 MappedByteBuffer</h6></li>
 </ul>
 <p>操作系统的内存分两部分:</p>
@@ -590,7 +591,7 @@ bcd
 </ul>
 <p>MappedByteBuffer使用的是mmap技术。MappedByteBuffer将文件映射为内存，也可能会被存储在虚拟内存里面，访问的时候通过缺页机制调进内存。</p>
 <p>FileChannel提供了map方法获取MappedByteBuffer,可以指定访问的位置，访问内存映射文件的方式，其中，访问内存映射文件的方式有3种，分别为：READ_ONLY（只读），READ_WRITE（读写），PRIVATE（专用）。采用内存映射文件可以很大的提高读写文件的效率，因为将直接访问系统内存。</p>
-<pre class=" language-Java"><code class="language-Java">        FileChannel readChannel = FileChannel.open(Paths.get("D:\\电子书\\阿里巴巴Java开发手册v1.2.0.pdf"), StandardOpenOption.READ);
+<pre class="line-numbers language-Java"><code class="language-Java">        FileChannel readChannel = FileChannel.open(Paths.get("D:\\电子书\\阿里巴巴Java开发手册v1.2.0.pdf"), StandardOpenOption.READ);
         FileChannel writeChannel = FileChannel.open(Paths.get("D:\\电子书\\阿里巴巴Java开发手册v1.2.0_bak2.pdf"),
                 StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.READ);
 
@@ -600,11 +601,11 @@ bcd
         byte[] dst = new byte[readMapperByteBuffer.limit()];
         readMapperByteBuffer.get(dst);
         writerMappedByteBuffer.put(dst);
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h6 id="Pipe"><a href="#Pipe" class="headerlink" title="Pipe"></a>Pipe</h6><ul>
 <li>Java NIO 管道是2个线程之间的单向数据连接。Pipe有一个source通道和一个sink通道。数据会被写到sink通道，从source通道读取.</li>
 </ul>
-<pre class=" language-Java"><code class="language-Java">        //获取pipe
+<pre class="line-numbers language-Java"><code class="language-Java">        //获取pipe
         Pipe pipe = Pipe.open();
         //分配缓存区
         ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
@@ -620,7 +621,7 @@ bcd
         System.out.println(new String(byteBuffer.array(), 0, len));
         sourceChannel.close();
         sinkChannel.close();
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h6 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h6><p>Selector（选择器）是Java NIO中能够检测一到多个NIO通道，并能够知晓通道是否为诸如读写事件做好准备的组件。这样，一个单独的线程可以管理多个channel，从而管理多个网络连接。</p>
 <ul>
 <li><p>Selector的创建</p>
@@ -813,7 +814,7 @@ SelectionKey key = channel.register(selector,
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://geguofeng.guthub.io" class="b-link-green">青灯</a>
+                    <a href="https://geguofeng.guthub.io" class="b-link-green">Godfery</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/2017/12/26/Java NIO/" class="b-link-green">Java NIO 简述</a>
                 </p>
@@ -973,7 +974,7 @@ SelectionKey key = channel.register(selector,
 
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
-            + '来源: 青灯<br />'
+            + '来源: Godfery<br />'
             + '作者: <br />'
             + '链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
@@ -1084,7 +1085,7 @@ SelectionKey key = channel.register(selector,
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            本站由&copy;<a href="https://geguofeng.github.io/" target="_blank">Godfery</a>基于
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的
             <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
 

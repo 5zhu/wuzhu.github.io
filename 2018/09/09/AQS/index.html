@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Java并发编程实战：AQS, 青灯">
+    <meta name="keywords" content="Java并发编程实战：AQS, Godfery">
     <meta name="description" content="前言AQS(AbstractQueuedSynchronizer)    同步器 JDK1.5    提供了  java    .util.concurrent 包（JUC）大大的提升了并发性能，而AQS是JUC的核心。AQS是基于FIFO">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Java并发编程实战：AQS | 青灯</title>
+    <title>Java并发编程实战：AQS | Godfery</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -28,7 +28,8 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -41,7 +42,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">青灯</span>
+                    <span class="logo-span">Godfery</span>
                 </a>
             </div>
             
@@ -116,7 +117,7 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">青灯</div>
+        <div class="logo-name">Godfery</div>
         <div class="logo-desc">
             
             Never really desperate, only the lost of the soul.
@@ -363,7 +364,7 @@
 </ul>
 <p>AQS内部维护了一个CLH队列来管理锁，线程尝试获取锁，如果失败，就将当前线程以及等待状态等信息会包装成一个Node节点，加入到同步队列Sync Queue尾部，同时阻塞当前线程，当同步状态释放时，唤醒队列的头节点。</p>
 <h4 id="AbstractQueuedSynchronizer-源码浅析"><a href="#AbstractQueuedSynchronizer-源码浅析" class="headerlink" title="AbstractQueuedSynchronizer 源码浅析"></a>AbstractQueuedSynchronizer 源码浅析</h4><p>AbstractQueuedSynchronizer是一个抽象类，定义了两种资源共享方式：SHARED（共享）和EXCLUSIVE（独占）</p>
-<pre class=" language-Java"><code class="language-Java">
+<pre class="line-numbers language-Java"><code class="language-Java">
     static final class Node {
     /** Marker to indicate a node is waiting in shared mode */
     static final Node SHARED = new Node();
@@ -390,7 +391,7 @@
 
      return unsafe.compareAndSwapInt(this, stateOffset, expect, update);
     }
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>自定义同步器需要继承AbstractQueuedSynchronizer实现state的获取和释放方法。</p>
 <h4 id="Acquire-和-Release"><a href="#Acquire-和-Release" class="headerlink" title="Acquire 和 Release"></a>Acquire 和 Release</h4><ul>
 <li><p>protected boolean tryAcquire(int arg)：<br>以独占的方式尝试获取资源，成功返回true，反之false。</p>
@@ -403,7 +404,7 @@
 </li>
 </ul>
 <h4 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h4><p>CountDownLatch是一种灵活的闭锁实现，它可以使一个或者多个线程等待一组事件发生。闭锁包括一个计数器，该计数器初始化时是一个正数，表示等待的事件数量，countDown方法递减计数器，表示一个事件发生了，而await方法等待计数器达到零，表示所有需要等待的事件都已发生。如果非零，那么await方法会一直阻塞到计数器为零，或者等待线程中断或超时。</p>
-<h5 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h5><pre class=" language-Java"><code class="language-Java">public class CountDownLatchDemo {
+<h5 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h5><pre class="line-numbers language-Java"><code class="language-Java">public class CountDownLatchDemo {
 
     private final static int threadCount = 10;
 
@@ -428,9 +429,9 @@
         System.out.println("executed finish");
     }
 }
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h5><p>可以看出,CountDownLatch实现了AQS的tryAcquireShared和tryReleaseShared方法，是以共享方式获取和释放资源的。</p>
-<pre class=" language-Java"><code class="language-Java">public class CountDownLatch {
+<pre class="line-numbers language-Java"><code class="language-Java">public class CountDownLatch {
     /**
      * Synchronization control For CountDownLatch.
      * Uses AQS state to represent count.
@@ -481,13 +482,13 @@
         }
         return false;
     }
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>CountDownLatch将任务分为count个线程与执行，将state初始化等于count，线程并行执行，每完成一个后countDown()一次调用tryReleaseShared，将state通过CAS算法减1。等到所有子线程都执行完后(即state=0)，会unpark()主调用线程，然后主调用线程就会从await()函数返回，继续后余动作。</p>
 <h4 id="Semaphore-信号量"><a href="#Semaphore-信号量" class="headerlink" title="Semaphore(信号量)"></a>Semaphore(信号量)</h4><blockquote>
 <p>计数信号量用来控制访问某个特定的资源的操作数量，或者同时执行某个制定操作的数量。</p>
 </blockquote>
 <h5 id="使用Semaphore"><a href="#使用Semaphore" class="headerlink" title="使用Semaphore"></a>使用Semaphore</h5><p>Semaphore中管理这一组虚拟的许可（permit），许可的初始数量可以通过构造函数指定，在执行操作时可以先获取许可（acquire（）），并在使用后释放（release（））；</p>
-<pre class=" language-Java"><code class="language-Java">/**
+<pre class="line-numbers language-Java"><code class="language-Java">/**
 * 执行10个线程操作，一次3个执行并发线程。
 **/
 public class SemaphoreDemo {
@@ -517,7 +518,7 @@ public class SemaphoreDemo {
 
     }
 }
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr>
@@ -663,7 +664,7 @@ public class SemaphoreDemo {
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://geguofeng.guthub.io" class="b-link-green">青灯</a>
+                    <a href="https://geguofeng.guthub.io" class="b-link-green">Godfery</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/2018/09/09/AQS/" class="b-link-green">Java并发编程实战：AQS</a>
                 </p>
@@ -809,7 +810,7 @@ public class SemaphoreDemo {
 
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
-            + '来源: 青灯<br />'
+            + '来源: Godfery<br />'
             + '作者: <br />'
             + '链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
@@ -920,7 +921,7 @@ public class SemaphoreDemo {
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            本站由&copy;<a href="https://geguofeng.github.io/" target="_blank">Godfery</a>基于
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的
             <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
 

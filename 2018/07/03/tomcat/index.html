@@ -4,8 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="search, Godfery">
-    <meta name="description" content="search | Godfery">
+    <meta name="keywords" content="Tomcat基本原理, Godfery">
+    <meta name="description" content="Tomcat是Apache软件基金会（Apache Software Foundation）的Jakarta项目中的一个核心项目。一个免费的开放源代码的Web应用服务器。
+Tomcat组件介绍上图是Tomcat的总体结构：    
+
+Ser">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>search | Godfery</title>
+    <title>Tomcat基本原理 | Godfery</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -198,13 +201,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        search
+                        Tomcat基本原理
                     </div>
                 </div>
             </div>
@@ -313,12 +316,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Tomcat/" target="_blank">
+                                <span class="chip bg-color">Tomcat</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Tomcat/" class="post-category" target="_blank">
+                                Tomcat
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -326,7 +342,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2018-01-20
+                    2018-07-03
                 </div>
 
                 
@@ -342,7 +358,79 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>Tomcat是Apache软件基金会（Apache Software Foundation）的Jakarta项目中的一个核心项目。一个免费的开放源代码的Web应用服务器。</p>
+<h4 id="Tomcat组件介绍"><a href="#Tomcat组件介绍" class="headerlink" title="Tomcat组件介绍"></a>Tomcat组件介绍</h4><p><img src="http://wx2.sinaimg.cn/mw690/9dd01c34ly1g2ab1zcz89j20us0ki0v4.jpg" alt=""><br>上图是Tomcat的总体结构：    </p>
+<ul>
+<li>Server指的是tomcat服务器，主要负责管理和启动多个Service，一个Server可以包含多个Service。各个Service之间是独立的，共享虚拟机资源。有了Service就可以对外提供服务了，<br>Service需要Server的资源环境，Tomcat的整个生命周期有Server掌控。</li>
+<li>Tomcat的两个核心组件：Connector和Container，<br>Connector是Tomcat与外部世界的连接器，监听固定的端口接收外部请求。然后将请求传递给Container，并且将Container处理的请求结果返回给外部。<br>Container是一个Servlet容器，主要接收Connector请求。它有四个子容器组件构成，主要管理Servlet的生命周期。<br>一个Service可以设置多个Connector，但是只能有一个Container。</li>
+</ul>
+<h4 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h4><p>Server的任务很简单，就是提供接口让其他程序访问到Service集合，维护Service的生命周期,从Server的源码中可以看到所提供的方法。</p>
+<pre class="line-numbers language-java"><code class="language-java">
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Server</span> <span class="token keyword">extends</span> <span class="token class-name">Lifecycle</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">public</span> NamingResourcesImpl <span class="token function">getGlobalNamingResources</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setGlobalNamingResources</span>
+            <span class="token punctuation">(</span>NamingResourcesImpl globalNamingResources<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> javax<span class="token punctuation">.</span>naming<span class="token punctuation">.</span>Context <span class="token function">getGlobalNamingContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getPort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setPort</span><span class="token punctuation">(</span><span class="token keyword">int</span> port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getPortOffset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setPortOffset</span><span class="token punctuation">(</span><span class="token keyword">int</span> portOffset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getPortWithOffset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> String <span class="token function">getAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAddress</span><span class="token punctuation">(</span>String address<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> String <span class="token function">getShutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setShutdown</span><span class="token punctuation">(</span>String shutdown<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> ClassLoader <span class="token function">getParentClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setParentClassLoader</span><span class="token punctuation">(</span>ClassLoader parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> Catalina <span class="token function">getCatalina</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCatalina</span><span class="token punctuation">(</span>Catalina catalina<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> File <span class="token function">getCatalinaBase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCatalinaBase</span><span class="token punctuation">(</span>File catalinaBase<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> File <span class="token function">getCatalinaHome</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCatalinaHome</span><span class="token punctuation">(</span>File catalinaHome<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getUtilityThreads</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setUtilityThreads</span><span class="token punctuation">(</span><span class="token keyword">int</span> utilityThreads<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addService</span><span class="token punctuation">(</span>Service service<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> Service <span class="token function">findService</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> Service<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">findServices</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">removeService</span><span class="token punctuation">(</span>Service service<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> Object <span class="token function">getNamingToken</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> ScheduledExecutorService <span class="token function">getUtilityExecutor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><p>下面是Service接口源码</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Service</span> <span class="token keyword">extends</span> <span class="token class-name">Lifecycle</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> Engine <span class="token function">getContainer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setContainer</span><span class="token punctuation">(</span>Engine engine<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> Server <span class="token function">getServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setServer</span><span class="token punctuation">(</span>Server server<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> ClassLoader <span class="token function">getParentClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setParentClassLoader</span><span class="token punctuation">(</span>ClassLoader parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addConnector</span><span class="token punctuation">(</span>Connector connector<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> Connector<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">findConnectors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">removeConnector</span><span class="token punctuation">(</span>Connector connector<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addExecutor</span><span class="token punctuation">(</span>Executor ex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> Executor<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">findExecutors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> Executor <span class="token function">getExecutor</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">removeExecutor</span><span class="token punctuation">(</span>Executor ex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Mapper <span class="token function">getMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过setContainer方法和addConnector方法，将Connector和Container两大核心组件包在Service中。<br>这些组件的生命周期都是Liftcycle接口控制。</p>
+<h4 id="Liftcycle"><a href="#Liftcycle" class="headerlink" title="Liftcycle"></a>Liftcycle</h4><p>前面所说的Liftcycle控制了Service和Server的生命周期，组件可以继承这个接口。<br>Liftcycle提供了控制生命周期的Start和Stop方法，另外还提供了一些监听机制。</p>
+<h4 id="Connector"><a href="#Connector" class="headerlink" title="Connector"></a>Connector</h4><p>Connector是Tomcat的核心主键之一，主要负责接收浏览器发过来的TCP连接请求，创建Request和Response对象用于请求端交换数据。<br>然后产生一个线程看来处理这个请求，将这个请求生成的Request和Response对象传递给处理请求的线程，也就是Container。</p>
+<ul>
+<li>下面是Connector处理请求顺序图：<br><img src="http://wx3.sinaimg.cn/mw690/9dd01c34ly1g2bt2m8ggwj20o00ls78j.jpg" alt=""></li>
+</ul>
+
             </div>
             <hr>
 
@@ -489,7 +577,7 @@
                     </span>
                     <a href="https://geguofeng.guthub.io" class="b-link-green">Godfery</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/search/index.html" class="b-link-green">search</a>
+                    <a href="/2018/07/03/tomcat/" class="b-link-green">Tomcat基本原理</a>
                 </p>
             </div>
         </div>
@@ -512,33 +600,44 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/search/index.html">
+                <a href="/2018/09/03/juc1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="search">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Java线程安全：可见性，原子性，有序性">
                         
-                        <span class="card-title">search</span>
+                        <span class="card-title">Java线程安全：可见性，原子性，有序性</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text"></div>
+                    <div class="summary block-with-text">Java线程安全可见性，原子性，有序性
+Java内存模型（JMM）Java内存模型（Java Memory Model）描述了Java程序中各种变量（线程共享变量）的访问规则，以及在JVM中将变量存储到内存和从内存中读取变量这样的底层细节。</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-01-20
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-09-03
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/多线程/" class="post-category" target="_blank">
+                                    多线程
+                                </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/多线程/" target="_blank">
+                        <span class="chip bg-color">多线程</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -546,33 +645,52 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/search/index.html">
+                <a href="/2018/06/26/JavaTimer/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="search">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Java定时任务调度">
                         
-                        <span class="card-title">search</span>
+                        <span class="card-title">Java定时任务调度</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text"></div>
+                    <div class="summary block-with-text">前言
+基于给定的时间点，给定的时间间隔或者给定的执行次数自动执行任务。
+
+TimerTimer定义
+A facility for threads to schedule tasks for future execution in a bac</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-01-20
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-06-26
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java-Timer/" class="post-category" target="_blank">
+                                    Java Timer
+                                </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Timer/" target="_blank">
+                        <span class="chip bg-color">Timer</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

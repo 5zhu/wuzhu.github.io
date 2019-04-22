@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="《Java 8 实战》读书笔记, 青灯">
+    <meta name="keywords" content="《Java 8 实战》读书笔记, Godfery">
     <meta name="description" content="本章内容Java怎么又变了  Java 8所做的改变，在许多方面比Java历史上任何一次改变深远。而且好消息是，这些改变会让你编起程来更容易，用不着再写类似下面这种啰嗦的程序了（对inventory中的苹果按照重量进行排序）：
     Co">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>《Java 8 实战》读书笔记 | 青灯</title>
+    <title>《Java 8 实战》读书笔记 | Godfery</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -29,7 +29,8 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -42,7 +43,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">青灯</span>
+                    <span class="logo-span">Godfery</span>
                 </a>
             </div>
             
@@ -117,7 +118,7 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">青灯</div>
+        <div class="logo-name">Godfery</div>
         <div class="logo-desc">
             
             Never really desperate, only the lost of the soul.
@@ -364,12 +365,12 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="本章内容"><a href="#本章内容" class="headerlink" title="本章内容"></a>本章内容</h1><h2 id="Java怎么又变了"><a href="#Java怎么又变了" class="headerlink" title="Java怎么又变了"></a>Java怎么又变了</h2><p>  Java 8所做的改变，在许多方面比Java历史上任何一次改变深远。而且好<br>消息是，这些改变会让你编起程来更容易，用不着再写类似下面这种啰嗦的程序了（对inventory<br>中的苹果按照重量进行排序）：</p>
-<pre class=" language-java"><code class="language-java">    Collections<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>inventory<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Comparator</span><span class="token operator">&lt;</span>Apple<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+<pre class="line-numbers language-java"><code class="language-java">    Collections<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>inventory<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Comparator</span><span class="token operator">&lt;</span>Apple<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
       <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">compare</span><span class="token punctuation">(</span>Apple a1<span class="token punctuation">,</span> Apple a2<span class="token punctuation">)</span><span class="token punctuation">{</span> 
         <span class="token keyword">return</span> a1<span class="token punctuation">.</span><span class="token function">getWeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>a2<span class="token punctuation">.</span><span class="token function">getWeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
      <span class="token punctuation">}</span> 
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在Java 8里面，你可以编写更为简洁的代码，这些代码读起来更接近问题的描述：</p>
 <pre><code> inventory.sort(comparing(Apple::getWeight));
 </code></pre><h2 id="Java中的函数"><a href="#Java中的函数" class="headerlink" title="Java中的函数"></a>Java中的函数</h2><p>Java 8中新增了函数——值的一种新形式。 借助于Stream API，Java 8可以进行多核处理器上的并行编程。</p>
@@ -417,7 +418,7 @@
 <li><p>Stream API就是基于这种思想设计的。</p>
 </li>
 <li>使用流的好处：<br>下面两段代码都是用来返回低热量的菜肴名称的，<br>并按照卡路里排序。</li>
-<li>Java7：用了一个“垃圾变量”lowCaloricDishes。它唯一的作用就是作为一次<br>性的中间容器。<pre class=" language-java"><code class="language-java">   List<span class="token operator">&lt;</span>Dish<span class="token operator">></span> lowCaloricDishes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<li>Java7：用了一个“垃圾变量”lowCaloricDishes。它唯一的作用就是作为一次<br>性的中间容器。<pre class="line-numbers language-java"><code class="language-java">   List<span class="token operator">&lt;</span>Dish<span class="token operator">></span> lowCaloricDishes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
       <span class="token keyword">for</span><span class="token punctuation">(</span>Dish d<span class="token operator">:</span> menu<span class="token punctuation">)</span><span class="token punctuation">{</span> 
       <span class="token keyword">if</span><span class="token punctuation">(</span>d<span class="token punctuation">.</span><span class="token function">getCalories</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">400</span><span class="token punctuation">)</span><span class="token punctuation">{</span> 
       lowCaloricDishes<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span> 
@@ -432,9 +433,9 @@
     <span class="token keyword">for</span><span class="token punctuation">(</span>Dish d<span class="token operator">:</span> lowCaloricDishes<span class="token punctuation">)</span><span class="token punctuation">{</span> 
      lowCaloricDishesName<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>d<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
     <span class="token punctuation">}</span> 
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li>Java8:<pre class=" language-java"><code class="language-java">  <span class="token keyword">import</span> <span class="token keyword">static</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Comparator<span class="token punctuation">.</span>comparing<span class="token punctuation">;</span> 
+<li>Java8:<pre class="line-numbers language-java"><code class="language-java">  <span class="token keyword">import</span> <span class="token keyword">static</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Comparator<span class="token punctuation">.</span>comparing<span class="token punctuation">;</span> 
   <span class="token keyword">import</span> <span class="token keyword">static</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>stream<span class="token punctuation">.</span>Collectors<span class="token punctuation">.</span>toList<span class="token punctuation">;</span> 
   List<span class="token operator">&lt;</span>String<span class="token operator">></span> lowCaloricDishesName <span class="token operator">=</span> 
    menu<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">//从menu获得流（菜肴列表）</span>
@@ -442,7 +443,7 @@
    <span class="token punctuation">.</span><span class="token function">sorted</span><span class="token punctuation">(</span><span class="token function">comparing</span><span class="token punctuation">(</span>Dish<span class="token operator">:</span><span class="token operator">:</span>getCalories<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//排序</span>
    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>Dish<span class="token operator">:</span><span class="token operator">:</span>getName<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//获取菜名</span>
    <span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 -将流操作链接起来构成流的流水线<br><img src="https://s1.ax2x.com/2017/12/26/YO3ei.png" alt=""></li>
 </ul>
 <p>-那么，流到底是什么呢？简短的定义就是“<strong>从支持数据处理操作的源生成的元素序列</strong>”。</p>
@@ -582,7 +583,7 @@ menu.stream()
 <li>测试性能的方法</li>
 </ul>
 <p>测试类</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>java8inaction<span class="token punctuation">.</span>part7<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>java8inaction<span class="token punctuation">.</span>part7<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>function<span class="token punctuation">.</span>Function<span class="token punctuation">;</span>
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>stream<span class="token punctuation">.</span>Stream<span class="token punctuation">;</span>
@@ -655,7 +656,7 @@ menu.stream()
 
     <span class="token punctuation">}</span>
 
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre><code>&gt;Sequential sum done in:107 msecs
  Iterative sum done in:6 msecs
  Parallel sum done in: 108 msecs
@@ -668,7 +669,7 @@ menu.stream()
 <li>LongStream.rangeClosed会生成数字范围，很容易拆分为独立的小块。例如，范围1~20<br>可分为1~5、6~10、11~15和16~20。</li>
 </ul>
 </blockquote>
-<pre class=" language-Java"><code class="language-Java"> //顺序流
+<pre class="line-numbers language-Java"><code class="language-Java"> //顺序流
  public static long rangedSum(long n) { 
       return LongStream.rangeClosed(1, n) .reduce(0L, Long::sum); 
      } 
@@ -680,7 +681,7 @@ menu.stream()
                         .reduce(0L, Long::sum); 
       } 
 
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre><code> 输出结果
  Sequential range sum done in:6 msecs
  Parallel range sum done in:3 msecs
@@ -776,7 +777,7 @@ menu.stream()
 <h1 id="用Optional取代null"><a href="#用Optional取代null" class="headerlink" title="用Optional取代null"></a>用Optional取代null</h1><p>NullPointerException是目前Java程序开发中最典型的异常，它让你的代码充斥着深度嵌套的null检查，代码的可读性糟糕透顶。</p>
 <h2 id="Optional-类入门"><a href="#Optional-类入门" class="headerlink" title="Optional 类入门"></a>Optional 类入门</h2><p>Java 8中引入了一个新的类java.util.Optional<t>。这<br>是一个封装Optional值的类。变量存在时，Optional类只是对类简单封装。变量不存在时，缺失的值会被建模成一个“空”<br>的Optional对象，由方法Optional.empty()返回。</t></p>
 <p>不使用optional的例子</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span> 
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span> 
     <span class="token keyword">private</span> Car car<span class="token punctuation">;</span> 
      <span class="token keyword">public</span> Car <span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> car<span class="token punctuation">;</span> <span class="token punctuation">}</span> 
     <span class="token punctuation">}</span> 
@@ -792,10 +793,10 @@ menu.stream()
 <span class="token keyword">public</span> String <span class="token function">getCarInsuranceName</span><span class="token punctuation">(</span>Person person<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
  <span class="token keyword">return</span> person<span class="token punctuation">.</span><span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInsurance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
 <span class="token punctuation">}</span> 
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p> 如果person.getCar()==null,这个人没有车，就会抛个NullPointerException，</p>
 <p> 使用optional</p>
-<pre class=" language-Java"><code class="language-Java"> public class Person { 
+<pre class="line-numbers language-Java"><code class="language-Java"> public class Person { 
  //人可能有车，也可能没有车，因此将这个字段声明为Optional
  private Optional<car> car; 
  public Optional<car> getCar() { return car; } 
@@ -809,7 +810,7 @@ public class Insurance {
  private String name; 
  public String getName() { return name; }
 } 
-</insurance></insurance></car></car></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></insurance></insurance></car></car></code></pre>
 <blockquote>
 <p>null引用和Optional.empty()<br>有什么本质的区别吗？从语义上，你可以把它们当作一回事儿，但是实际中它们之间的差别非常<br>大：如果你尝试解引用一个 null ，一定会触发 NullPointerException ，不过使用<br>Optional.empty()就完全没事儿</p>
 </blockquote>
@@ -1021,7 +1022,7 @@ return person.getCar().getInsurance().getName();
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://geguofeng.guthub.io" class="b-link-green">青灯</a>
+                    <a href="https://geguofeng.guthub.io" class="b-link-green">Godfery</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/2017/12/26/Java8/" class="b-link-green">《Java 8 实战》读书笔记</a>
                 </p>
@@ -1178,7 +1179,7 @@ return person.getCar().getInsurance().getName();
 
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
-            + '来源: 青灯<br />'
+            + '来源: Godfery<br />'
             + '作者: <br />'
             + '链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
@@ -1289,7 +1290,7 @@ return person.getCar().getInsurance().getName();
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            本站由&copy;<a href="https://geguofeng.github.io/" target="_blank">Godfery</a>基于
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的
             <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
 
