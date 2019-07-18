@@ -4,8 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="分类: 多线程, Godfery的简单笔记">
-    <meta name="description" content="分类: 多线程 | Godfery的简单笔记">
+    <meta name="keywords" content="分类: 设计模式, Godfery的简单笔记">
+    <meta name="description" content="分类: 设计模式 | Godfery的简单笔记">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>分类: 多线程 | Godfery的简单笔记</title>
+    <title>分类: 设计模式 | Godfery的简单笔记</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -244,7 +244,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 
                 <a href="/categories/多线程/" title="多线程: 3">
                     <span class="chip center-align waves-effect waves-light
-                             chip-active " style="background-color: #F5EEF8;">多线程
+                             chip-default " style="background-color: #F5EEF8;">多线程
                         <span class="tag-length">3</span>
                     </span>
                 </a>
@@ -268,7 +268,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 
                 <a href="/categories/设计模式/" title="设计模式: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #FEF9E7;">设计模式
+                             chip-active " style="background-color: #FEF9E7;">设计模式
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -310,31 +310,37 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             
             <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2018/09/09/AQS/">
+                    <a href="/2017/07/09/adapter/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Java并发编程实战：AQS">
+                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="设计模式：适配器模式">
                             
-                            <span class="card-title">Java并发编程实战：AQS</span>
+                            <span class="card-title">设计模式：适配器模式</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                前言AQS(AbstractQueuedSynchronizer)    同步器 JDK1.5    提供了  java    .util.concurrent 包（JUC）大大的提升了并发性能，而AQS是JUC的核心。AQS是基于FIFO
+                                定义将一个类的接口转换成客户期望的另一个接口，使原本接口不兼容的类可以一起工作。属于结构型设计模式
+优点
+能提高类的透明性和复用，现有的类复用但不需要改变
+目标类和适配器类解耦，提高程序扩展性
+符合开闭原则
+
+缺点适配器模式不是软件设计阶段
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-09-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2017-07-09
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fa fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/多线程/" class="post-category" target="_blank">
-                                    多线程
+                                <a href="/categories/设计模式/" class="post-category" target="_blank">
+                                    设计模式
                                 </a>
                                 
                                 
@@ -345,102 +351,8 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/多线程/" target="_blank">
-                            <span class="chip bg-color">多线程</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2018/09/04/JUC2/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Java线程安全： 发布对象&对象逸出">
-                            
-                            <span class="card-title">Java线程安全： 发布对象&对象逸出</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Java多线程 之 发布对象于对象逸出发布对象（publish）使一个对象能够被其他当前范围之外的代码所使用。
-下面是一个不安全发布的例子，代码中，通过public的访问级别发布了states，在类的任何外部的线程都可以访问这些私有域sta
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-09-04
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/多线程/" class="post-category" target="_blank">
-                                    多线程
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/多线程/" target="_blank">
-                            <span class="chip bg-color">多线程</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2018/09/03/juc1/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Java线程安全：可见性，原子性，有序性">
-                            
-                            <span class="card-title">Java线程安全：可见性，原子性，有序性</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Java线程安全可见性，原子性，有序性
-Java内存模型（JMM）Java内存模型（Java Memory Model）描述了Java程序中各种变量（线程共享变量）的访问规则，以及在JVM中将变量存储到内存和从内存中读取变量这样的底层细节。
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-09-03
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/多线程/" class="post-category" target="_blank">
-                                    多线程
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/多线程/" target="_blank">
-                            <span class="chip bg-color">多线程</span>
+                        <a href="/tags/设计模式/" target="_blank">
+                            <span class="chip bg-color">设计模式</span>
                         </a>
                         
                     </div>
