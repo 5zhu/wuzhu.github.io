@@ -4,8 +4,14 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="相册, Godfery的简单笔记">
-    <meta name="description" content="相册 | Godfery的简单笔记">
+    <meta name="keywords" content="设计模式：单例模式, Godfery的简单笔记">
+    <meta name="description" content="定义单例模式就是采取一定方法保证在整个软件系统中，对于某个类只能存在一个对象的实例，并且该类只提供一个取得其对象实例的方法。属于创建型。
+优点
+在内存里只有一个实例，减少了内存开销
+可以避免对资源的多重占用
+设置全局访问点，严格控制访问
+
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>相册 | Godfery的简单笔记</title>
+    <title>设计模式：单例模式 | Godfery的简单笔记</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -198,13 +204,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        相册
+                        设计模式：单例模式
                     </div>
                 </div>
             </div>
@@ -313,12 +319,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/设计模式/" target="_blank">
+                                <span class="chip bg-color">设计模式</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/设计模式/" class="post-category" target="_blank">
+                                设计模式
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -326,7 +345,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2018-05-22
+                    2017-07-04
                 </div>
 
                 
@@ -342,7 +361,97 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>单例模式就是采取一定方法保证在整个软件系统中，对于某个类只能存在一个对象的实例，并且该类只提供一个取得其对象实例的方法。属于创建型。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>在内存里只有一个实例，减少了内存开销</li>
+<li>可以避免对资源的多重占用</li>
+<li>设置全局访问点，严格控制访问</li>
+</ul>
+<h2 id="单例的实现"><a href="#单例的实现" class="headerlink" title="单例的实现"></a>单例的实现</h2><h4 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h4><pre class="line-numbers language-Java"><code class="language-Java">/**
+ * 懒汉式单例模式
+ * (在多线程下不能保证创建的实例是唯一的)
+ */
+public class LazySingleton {
+
+    private LazySingleton(){}
+
+    //和饿汉式不同，这里不实例化，而是在需要的时候再去new
+    private static LazySingleton instance;
+
+    //在多线程下不能保证创建的实例是唯一的
+    public static LazySingleton getInstance(){
+        if(instance==null){
+            instance = new LazySingleton();
+        }
+        return instance;
+    }
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="懒汉式改进（线程安全）"><a href="#懒汉式改进（线程安全）" class="headerlink" title="懒汉式改进（线程安全）"></a>懒汉式改进（线程安全）</h4><pre class="line-numbers language-Java"><code class="language-Java">/**
+ * 懒汉式改进 线程安全的单例模式
+ */
+public class SynchronizedSingleton {
+
+    private SynchronizedSingleton(){}
+
+    //和饿汉式不同，这里不实例化，而是在需要的时候再去new
+    private static volatile SynchronizedSingleton instance;
+
+    //双重加锁
+    public static SynchronizedSingleton getInstance(){
+        if(instance == null){
+            synchronized (SynchronizedSingleton.class){
+                if(instance == null){
+                    instance = new SynchronizedSingleton();
+                }
+            }
+        }
+        return instance;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用synchronized保证创建单例对象时的线程安全，使用volatile修饰instance，防止在执行instance = new SynchronizedSingleton()时候发生指令重排序带来线程安全问题。</p>
+<h4 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * 内部类实现单例模式
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">InnerClassSingleton</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> InnerClassSingleton <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Singleton<span class="token punctuation">.</span>singleton<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span><span class="token punctuation">{</span>
+        <span class="token keyword">private</span> <span class="token keyword">static</span> InnerClassSingleton singleton <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">InnerClassSingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token function">InnerClassSingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h4><pre class="line-numbers language-Java"><code class="language-Java">/**
+ * 饿汉式单例模式
+ */
+public class HungrySingleton {
+
+    //将构造函数私有化，不允许外部对象直接调用
+    private HungrySingleton(){}
+
+    private static final HungrySingleton instance = new HungrySingleton();
+
+    //对外提供唯一用于获取实例的方法
+    public static HungrySingleton getInstance(){
+        return instance;
+    }
+
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="枚举实现单例"><a href="#枚举实现单例" class="headerlink" title="枚举实现单例"></a>枚举实现单例</h4><pre class="line-numbers language-Java"><code class="language-Java">    public enum EnumSingleton {
+        INSTANCE;
+     }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
             </div>
             <hr>
 
@@ -489,7 +598,7 @@
                     </span>
                     <a href="https://geguofeng.guthub.io" class="b-link-green">Godfery的简单笔记</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/photo/index.html" class="b-link-green">相册</a>
+                    <a href="/2017/07/04/singleton/" class="b-link-green">设计模式：单例模式</a>
                 </p>
             </div>
         </div>
@@ -512,33 +621,49 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/photo/index.html">
+                <a href="/2017/07/09/adapter/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="相册">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="设计模式：适配器模式">
                         
-                        <span class="card-title">相册</span>
+                        <span class="card-title">设计模式：适配器模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text"></div>
+                    <div class="summary block-with-text">定义将一个类的接口转换成客户期望的另一个接口，使原本接口不兼容的类可以一起工作。属于结构型设计模式
+优点
+能提高类的透明性和复用，现有的类复用但不需要改变
+目标类和适配器类解耦，提高程序扩展性
+符合开闭原则
+
+缺点适配器模式不是软件设计阶段</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-05-22
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2017-07-09
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/设计模式/" class="post-category" target="_blank">
+                                    设计模式
+                                </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/设计模式/" target="_blank">
+                        <span class="chip bg-color">设计模式</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -549,30 +674,48 @@
                 本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
             </div>
             <div class="card">
-                <a href="/photo/index.html">
+                <a href="/2017/07/04/singleton/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="相册">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="设计模式：单例模式">
                         
-                        <span class="card-title">相册</span>
+                        <span class="card-title">设计模式：单例模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text"></div>
+                    <div class="summary block-with-text">定义单例模式就是采取一定方法保证在整个软件系统中，对于某个类只能存在一个对象的实例，并且该类只提供一个取得其对象实例的方法。属于创建型。
+优点
+在内存里只有一个实例，减少了内存开销
+可以避免对资源的多重占用
+设置全局访问点，严格控制访问
+
+</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-05-22
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2017-07-04
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/设计模式/" class="post-category" target="_blank">
+                                    设计模式
+                                </a>
                             
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/设计模式/" target="_blank">
+                        <span class="chip bg-color">设计模式</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
